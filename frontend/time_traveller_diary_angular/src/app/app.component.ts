@@ -1,14 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Observable } from 'rxjs';
 
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet],
+    imports: [RouterOutlet, CommonModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
