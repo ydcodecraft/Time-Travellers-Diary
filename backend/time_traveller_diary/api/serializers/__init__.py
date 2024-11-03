@@ -1,0 +1,1 @@
+from .diary_entry_serializer import DiaryEntrySerializer
