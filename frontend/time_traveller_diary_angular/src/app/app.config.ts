@@ -12,7 +12,8 @@ export const appConfig: ApplicationConfig = {
       domain: 'dev-ydcodecraft.ca.auth0.com',
       clientId: 'BAWgx55vPLRKjhPM6lgldLqT9r3kWAPZ',
       authorizationParams: {
-        redirect_uri: window.location.origin
+        redirect_uri: window.location.origin,
+        audience: 'https://dev-ydcodecraft.ca.auth0.com/api/v2/',
       }
     })
   ]
