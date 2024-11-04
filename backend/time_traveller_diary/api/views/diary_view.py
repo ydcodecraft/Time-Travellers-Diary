@@ -1,5 +1,6 @@
 from rest_framework import status
-from rest_framework.response import responses
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
@@ -15,7 +16,7 @@ class DiaryCreateListView(generics.ListCreateAPIView):
     # return diaries for currently logged in time traveller
     def get_queryset(self):
         # get the time traveller for the currently logged in user
-        print(self.request)
+        print(self.request.user)
         
         return
         time_traveller = TimeTraveller.objects.get(user=self.request.user)
@@ -40,4 +41,8 @@ class DiarySingleView(generics.RetrieveUpdateDestroyAPIView):
         time_traveller = TimeTraveller.objects.get(user=self.request.user)
 
         return Diary.objects.filter(time_traveller=time_traveller)
+
+@api_view()
+def authorized_heart_beat_test(request):
+    return Response("You have to be authorized to see this!")
 
