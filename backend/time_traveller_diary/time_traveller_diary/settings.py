@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_spectacular',
+    'rest_framework_jwt',
     'api.apps.ApiConfig',
 ]
 
@@ -63,7 +65,7 @@ JWT_AUTH = {
     'JWT_DECODE_HANDLER':
         'api.utils.jwt_decode_token',
     'JWT_ALGORITHM': 'RS256',
-    'JWT_AUDIENCE': 'https://resource/api',
+    'JWT_AUDIENCE': 'https://dev-ydcodecraft.ca.auth0.com/api/v2/',
     'JWT_ISSUER': 'https://dev-ydcodecraft.ca.auth0.com/',
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
@@ -127,12 +129,13 @@ AUTH_USER_MODEL = 'api.AppUser'
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PERMISSION_CLASSES': (
+        # enabling auth on all API calls
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
     ),
 }
 

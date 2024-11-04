@@ -11,11 +11,13 @@ from api.models.time_traveller import TimeTraveller
 # handle creation and listing all diaries
 class DiaryCreateListView(generics.ListCreateAPIView):
     serializer_class = DiarySerializer
-    # permission_classes = [IsAuthenticated]
 
     # return diaries for currently logged in time traveller
     def get_queryset(self):
         # get the time traveller for the currently logged in user
+        print(self.request)
+        
+        return
         time_traveller = TimeTraveller.objects.get(user=self.request.user)
         
         return Diary.objects.filter(time_traveller=time_traveller)
@@ -31,7 +33,6 @@ class DiaryCreateListView(generics.ListCreateAPIView):
 class DiarySingleView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Diary.objects.all()
     serializer_class = DiarySerializer
-    permission_classes = [IsAuthenticated]
 
     # Return a specific diary entry for the logged-in user
     def get_queryset(self):

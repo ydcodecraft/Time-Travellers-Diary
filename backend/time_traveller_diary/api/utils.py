@@ -26,4 +26,4 @@ def jwt_decode_token(token):
         raise Exception('Public key not found.')
 
     issuer = 'https://{}/'.format('dev-ydcodecraft.ca.auth0.com')
-    return jwt.decode(token, public_key, audience='https://resource/api', issuer=issuer, algorithms=['RS256'])
+    return jwt.decode(token, public_key, audience='https://dev-ydcodecraft.ca.auth0.com/api/v2/', issuer=issuer, algorithms=['RS256'])
