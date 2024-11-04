@@ -6,7 +6,6 @@
 </div>
 
 <div *ngIf="auth.isAuthenticated$ | async as isauthenticated">
-<!-- <div>   -->
   <button (click)="logout()">Log out</button>
 </div>
 
@@ -15,4 +14,8 @@
     <li>{{ user.name }}</li>
     <li>{{ user.email }}</li>
   </ul>`,
+</div>
+
+<div>
+  <button (click)="authorized_heart_beat_test()">test your secured connection</button>
 </div>
