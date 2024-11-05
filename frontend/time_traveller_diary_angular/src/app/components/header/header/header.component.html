@@ -1,0 +1,23 @@
+<div class="header-container">
+    <div class="header-logo">
+        <img/>
+    </div>
+    <div class="header-nav-menu">
+        <a routerLink="/">
+            <button mat-flat-button>Home</button>
+        </a>
+        <div *ngIf="!isAuthenticated">
+            <button mat-flat-button (click)="login()">
+                <mat-icon>login</mat-icon>
+                Log in
+            </button>
+        </div>
+        <div *ngIf="isAuthenticated">
+            <button mat-flat-button (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                Log out
+            </button>
+        </div>
+    </div>
+    
+</div>

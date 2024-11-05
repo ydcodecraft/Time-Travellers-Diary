@@ -1,21 +1,2 @@
-<div>
-  Landing
-</div>
-<div>
-  <button (click)="login()">Log in</button>
-</div>
-
-<div *ngIf="auth.isAuthenticated$ | async as isauthenticated">
-  <button (click)="logout()">Log out</button>
-</div>
-
-<div>
-  <ul *ngIf="auth.user$ | async as user">
-    <li>{{ user.name }}</li>
-    <li>{{ user.email }}</li>
-  </ul>`,
-</div>
-
-<div>
-  <button (click)="authorized_heart_beat_test()">test your secured connection</button>
-</div>
+<app-header></app-header>
+<router-outlet></router-outlet>

@@ -1,0 +1,20 @@
+.header-container {
+    margin: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .header-logo {
+        width: 80%;
+    }
+
+    .header-nav-menu {
+        display: flex;
+        justify-content: flex-end;
+
+        > * {
+            margin: 0.25rem;
+        }
+    }
+    
+}
