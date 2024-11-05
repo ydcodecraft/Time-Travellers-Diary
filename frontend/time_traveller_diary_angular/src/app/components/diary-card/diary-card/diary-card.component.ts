@@ -11,5 +11,8 @@ import {MatCardModule} from '@angular/material/card';
 export class DiaryCardComponent {
   @Input() cardTitle: string = '';
   @Input() cardSubtitle: string = '';
+  
 
 }
+
+
