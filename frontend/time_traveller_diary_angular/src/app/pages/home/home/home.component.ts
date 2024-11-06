@@ -1,13 +1,14 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -46,6 +47,10 @@ export class HomeComponent implements OnInit, OnDestroy{
 
   login() {
     this.auth.loginWithRedirect().subscribe();
+  }
+
+  register() {
+    this.auth.loginWithRedirect({authorizationParams: {screen_hint: 'signup'}}).subscribe();
   }
 
   logout() {
