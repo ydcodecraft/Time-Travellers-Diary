@@ -1,7 +1,38 @@
 <div class="diary-form-container">
+    <form [formGroup]="diaryForm" (ngSubmit)="onSubmit()">
+        <label for="date">Date:</label>
+        <input id="date" type="date" formControlName="date" />
+      
+        <div formArrayName="entries">
+          <div *ngFor="let entry of entries.controls; let i = index" [formGroupName]="i">
+            <h4>Diary Entry {{ i + 1 }}</h4>
+            
+            <label for="timePeriod">Time Period:</label>
+            <input id="timePeriod" formControlName="timePeriod" />
+      
+            <label for="description">Description:</label>
+            <textarea id="description" formControlName="description"></textarea>
+      
+            <label for="mood">Mood:</label>
+            <select id="mood" formControlName="mood">
+              <option value="">Select Mood</option>
+              <option value="happy">Happy</option>
+              <option value="sad">Sad</option>
+              <option value="neutral">Neutral</option>
+              <option value="excited">Excited</option>
+              <option value="anxious">Anxious</option>
+            </select>
+      
+            <button type="button" (click)="removeEntry(i)">Remove Entry</button>
+          </div>
+        </div>
+      
+        <button type="button" (click)="addEntry()">Add New Row</button>
+        <button type="submit" [disabled]="diaryForm.invalid">Submit</button>
 
+        <button mat-flat-button (click)="onClose()">
+            Close
+        </button>
+    </form>
 
-    <button mat-flat-button (click)="onClose()">
-        Close
-    </button>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 
 @Component({
@@ -8,11 +8,14 @@ import {MatCardModule} from '@angular/material/card';
   templateUrl: './diary-card.component.html',
   styleUrl: './diary-card.component.scss'
 })
-export class DiaryCardComponent {
-  @Input() cardTitle: string = '';
-  @Input() cardSubtitle: string = '';
+export class DiaryCardComponent implements OnInit{
+  // TODO: placeholder, change this to dto soon
+  @Input() diaryData: any;
   
-
+  
+  ngOnInit(): void {
+    console.log(this.diaryData);
+  }
 }
 
 

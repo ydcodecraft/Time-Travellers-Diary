@@ -1,14 +1,19 @@
 <mat-card class="diary-card-container" appearance="outlined">
     <mat-card-header>
         <mat-card-title>
-            {{ cardTitle }}
+            {{ diaryData?.date }}
         </mat-card-title>        
-        <mat-card-subtitle>
-            {{ cardSubtitle }}
-        </mat-card-subtitle>
+        <!-- <mat-card-subtitle>
+            {{ diaryData.date }}
+        </mat-card-subtitle> -->
     </mat-card-header>
     <mat-card-content>
         <!-- content projection so that parent component can format the description however it wants to -->
-        <ng-content class="diary-card-description" select="[description]"></ng-content>
+        <div class="diary-card-description">
+            <p>{{ diaryData?.entries[diaryData?.entries.length -1]?.timePeriod }}</p>
+            <p>{{ diaryData?.entries[diaryData?.entries.length -1]?.mood }}</p>
+            <p>{{ diaryData?.entries[diaryData?.entries.length -1]?.description }}</p>
+        </div>
+        <!-- <ng-content class="diary-card-description" select="[description]"></ng-content> -->
     </mat-card-content>    
 </mat-card>
