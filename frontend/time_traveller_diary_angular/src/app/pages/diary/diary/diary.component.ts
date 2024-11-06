@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DiaryCardComponent } from '../../../components/diary-card/diary-card/diary-card.component';
 import { CommonModule } from '@angular/common';
+import { DiaryEntryComponent } from '../../../components/diary-entry/diary-entry.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-diary',
@@ -10,7 +12,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './diary.component.scss'
 })
 export class DiaryComponent implements OnInit{
-  constructor() {}
+  constructor(
+    public dialog: MatDialog
+  ) {}
 
   public diaryData: any;
   
@@ -119,5 +123,11 @@ export class DiaryComponent implements OnInit{
   // return a list of diary dtos
   private fetchDiaries(): void {
     throw("not implemented")
+  }
+
+  public openDiaryEntry(diaryEntry: any) {
+    const dialogRef = this.dialog.open(DiaryEntryComponent, {
+      data: diaryEntry
+    });
   }
 }

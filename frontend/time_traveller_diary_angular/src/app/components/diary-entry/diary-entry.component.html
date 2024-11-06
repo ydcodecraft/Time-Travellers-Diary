@@ -1,9 +1,9 @@
 <div class="diary-form-container">
-    <form [formGroup]="diaryForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <label for="date">Date:</label>
-        <input id="date" type="date" formControlName="date" />
+        <!-- <input id="date" type="date" formControlName="date" /> -->
       
-        <div formArrayName="entries">
+        <!-- <div formArrayName="entries">
           <div *ngFor="let entry of entries.controls; let i = index" [formGroupName]="i">
             <h4>Diary Entry {{ i + 1 }}</h4>
             
@@ -26,9 +26,9 @@
             <button type="button" (click)="removeEntry(i)">Remove Entry</button>
           </div>
         </div>
-      
-        <button type="button" (click)="addEntry()">Add New Row</button>
-        <button type="submit" [disabled]="diaryForm.invalid">Submit</button>
+       -->
+        <button type="button" (click)="addDiaryEntry()">Add New Row</button>
+        <button type="submit" [disabled]="form.invalid">Submit</button>
 
         <button mat-flat-button (click)="onClose()">
             Close
