@@ -3,11 +3,13 @@ import { DiaryCardComponent } from '../../../components/diary-card/diary-card/di
 import { CommonModule } from '@angular/common';
 import { DiaryEntryComponent } from '../../../components/diary-entry/diary-entry.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-diary',
   standalone: true,
-  imports: [CommonModule, DiaryCardComponent],
+  imports: [CommonModule, DiaryCardComponent, MatButtonModule, MatIconModule],
   templateUrl: './diary.component.html',
   styleUrl: './diary.component.scss'
 })

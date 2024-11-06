@@ -3,6 +3,9 @@
     <div *ngFor="let diaryEntry of diaryData" class="diary-card-container">
         <app-diary-card [diaryData]="diaryEntry" (click)="openDiaryEntry(diaryEntry)"></app-diary-card>
     </div>
+    <button mat-mini-fab class="add-new-diary">
+        <mat-icon>add</mat-icon>
+    </button>
 </div>
 
 <div *ngIf="diaryData?.length === 0">
