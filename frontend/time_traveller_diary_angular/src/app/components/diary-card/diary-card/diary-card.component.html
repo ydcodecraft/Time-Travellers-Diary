@@ -10,8 +10,10 @@
     <mat-card-content>
         <!-- content projection so that parent component can format the description however it wants to -->
         <div class="diary-card-description">
-            <p>{{ diaryData?.entries[diaryData?.entries.length -1]?.timePeriod }}</p>
-            <p>{{ diaryData?.entries[diaryData?.entries.length -1]?.mood }}</p>
+            <mat-chip-set>
+                <mat-chip>{{ diaryData?.entries[diaryData?.entries.length -1]?.timePeriod }}</mat-chip>
+                <mat-chip>{{ diaryData?.entries[diaryData?.entries.length -1]?.mood }}</mat-chip>
+            </mat-chip-set>
             <p>{{ diaryData?.entries[diaryData?.entries.length -1]?.description }}</p>
         </div>
         <!-- <ng-content class="diary-card-description" select="[description]"></ng-content> -->
