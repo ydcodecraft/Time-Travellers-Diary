@@ -4,24 +4,45 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
+from drf_spectacular.utils import extend_schema, OpenApiParameter
+
 from api.models.diary import Diary
 from api.serializers.diary_serializer import DiarySerializer
 from api.models.time_traveller import TimeTraveller
+from api.models.app_user import AppUser
+
 
 
 # handle creation and listing all diaries
-class DiaryCreateListView(generics.ListCreateAPIView):
+class DiaryCreateListView(generics.GenericAPIView):
     serializer_class = DiarySerializer
 
-    # return diaries for currently logged in time traveller
-    def get_queryset(self):
-        # get the time traveller for the currently logged in user
-        print(self.request.user)
+
+    # set this up to use drf spectacular to annotate the swagger doc
+    def get(self, request, *args, **kwargs):
+        app_user = AppUser.objects.get(username=self.request.user)
         
-        return
-        time_traveller = TimeTraveller.objects.get(user=self.request.user)
+        if hasattr(app_user, 'time_traveller') is False:
+            content = {'Time Traveller Not Found':'You have not created a time traveller for this account yet!'}
+            return Response(content, status=status.HTTP_404_NOT_FOUND)
         
-        return Diary.objects.filter(time_traveller=time_traveller)
+        time_traveller = TimeTraveller.objects.get(user=app_user)
+        diary_list = Diary.objects.filter(time_traveller=time_traveller)
+        serializer = self.get_serializer(diary_list, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+    # Automatically set the time traveller to the logged-in time traveller when creating a diary entry
+    # def perform_create(self, serializer):
+    #     # get the time traveller for the currently logged in user
+    #     time_traveller = TimeTraveller.objects.get(user=self.request.user)
+
+    #     serializer.save(time_traveller=time_traveller)
+
+
+#  create a single diary entry
+class DiaryCreateView(generics.CreateAPIView):
+    serializer_class = DiarySerializer
 
     # Automatically set the time traveller to the logged-in time traveller when creating a diary entry
     def perform_create(self, serializer):
@@ -30,8 +51,10 @@ class DiaryCreateListView(generics.ListCreateAPIView):
 
         serializer.save(time_traveller=time_traveller)
 
+
+
 # get, delete, update specific diary entry 
-class DiarySingleView(generics.RetrieveUpdateDestroyAPIView):
+class DiaryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Diary.objects.all()
     serializer_class = DiarySerializer
 

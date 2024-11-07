@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from time_traveller_diary.api.models.time_traveller import TimeTraveller
+from api.models.time_traveller import TimeTraveller
 
 
 class TimeTravellerSerializer(serializers.ModelSerializer):

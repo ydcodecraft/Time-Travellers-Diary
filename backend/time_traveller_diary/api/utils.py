@@ -27,3 +27,17 @@ def jwt_decode_token(token):
 
     issuer = 'https://{}/'.format('dev-ydcodecraft.ca.auth0.com')
     return jwt.decode(token, public_key, audience='https://dev-ydcodecraft.ca.auth0.com/api/v2/', issuer=issuer, algorithms=['RS256'])
+
+
+# def get_me(access_token):
+#     url = f'https://dev-ydcodecraft.ca.auth0.com/userinfo'
+#     headers = {
+#         'Authorization': f'{access_token}'
+#     }
+    
+#     response = requests.get(url, headers=headers)
+    
+#     if response.status_code == 200:
+#         return response.json()  # Returns user information as a JSON object
+#     else:
+#         raise Exception(f"Failed to fetch user info: {response.status_code}, {response.text}")
