@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DiaryCardComponent } from '../../../components/diary-card/diary-card.component';
+import { DiaryCardComponent } from '../../components/diary-card/diary-card.component';
 import { CommonModule } from '@angular/common';
-import { DiaryEntryComponent } from '../../../components/diary-entry/diary-entry.component';
+import { DiaryEntryComponent } from '../../components/diary-entry/diary-entry.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
