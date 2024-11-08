@@ -4,15 +4,18 @@
     </div>
     <div class="header-nav-menu">
         <a routerLink="/">
-            <button mat-flat-button>Home</button>
+            <button mat-flat-button (click)="redirectToHome()">
+                <mat-icon>home</mat-icon>
+                Home
+            </button>
         </a>
-        <div *ngIf="!isAuthenticated">
+        <div *ngIf="!isLoggedIn">
             <button mat-flat-button (click)="login()">
                 <mat-icon>login</mat-icon>
                 Log in
             </button>
         </div>
-        <div *ngIf="isAuthenticated">
+        <div *ngIf="isLoggedIn">
             <button mat-flat-button (click)="logout()">
                 <mat-icon>logout</mat-icon>
                 Log out

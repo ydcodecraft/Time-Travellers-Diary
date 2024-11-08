@@ -6,7 +6,7 @@ import { DiaryComponent } from './pages/diary/diary/diary.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent},
-    { path: 'diary-dashboard', component: DiaryComponent}
+    { path: 'diary-dashboard', component: DiaryComponent, canActivate: [AuthGuard]}
 ];
 
 

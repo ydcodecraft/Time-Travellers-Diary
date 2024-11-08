@@ -25,17 +25,17 @@ export class HomeComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     // listens if user is authenticated, if they are, get access token
-    this.subscription.add(this.isAuthenticated$.subscribe(isAuthenticated => {
-      if (isAuthenticated) {
-        this.auth.getAccessTokenSilently().subscribe({
-          next: (token) => {
-            console.log(token);
-            //  store the access token to local storage
-            localStorage.setItem("auth0", token);
-          }
-        })
-      }
-    }));
+    // this.subscription.add(this.isAuthenticated$.subscribe(isAuthenticated => {
+    //   if (isAuthenticated) {
+    //     this.auth.getAccessTokenSilently().subscribe({
+    //       next: (token) => {
+    //         console.log(token);
+    //         //  store the access token to local storage
+    //         localStorage.setItem("auth0", token);
+    //       }
+    //     })
+    //   }
+    // }));
   }
 
   ngOnDestroy(): void {
