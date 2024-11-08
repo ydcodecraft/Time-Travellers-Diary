@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { DiaryCardComponent } from '../../../components/diary-card/diary-card/diary-card.component';
+import { DiaryCardComponent } from '../../../components/diary-card/diary-card.component';
 import { CommonModule } from '@angular/common';
 import { DiaryEntryComponent } from '../../../components/diary-entry/diary-entry.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-diary',
   standalone: true,
-  imports: [CommonModule, DiaryCardComponent, MatButtonModule, MatIconModule],
+  imports: [CommonModule, DiaryCardComponent, MatButtonModule, MatIconModule, MatCardModule],
   templateUrl: './diary.component.html',
   styleUrl: './diary.component.scss'
 })

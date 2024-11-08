@@ -1,13 +1,15 @@
 <!-- because we are using multiple ng keywords for our div, we need ng-container or it would create another layer or div in the virtual DOM tree -->
-<div *ngIf="diaryData?.length > 0" class="diary-card-grid">
-    <div *ngFor="let diaryEntry of diaryData" class="diary-card-container">
-        <app-diary-card [diaryData]="diaryEntry" (click)="openDiaryEntry(diaryEntry)"></app-diary-card>
-    </div>
-    <button mat-mini-fab class="add-new-diary">
-        <mat-icon>add</mat-icon>
-    </button>
-</div>
+<div class="diary-card-grid">
+    <mat-card class="new-diary-card" appearance="outlined">
+        <button mat-mini-fab class="add-new-diary">
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-card>
+    
 
-<div *ngIf="diaryData?.length === 0">
-    <p>No diary entries available.</p>
+    <ng-container *ngIf="diaryData?.length > 0">
+        <div *ngFor="let diaryEntry of diaryData" class="diary-card-container">
+            <app-diary-card [diaryData]="diaryEntry" (click)="openDiaryEntry(diaryEntry)"></app-diary-card>
+        </div>
+    </ng-container>
 </div>
