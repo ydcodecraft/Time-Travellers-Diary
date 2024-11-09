@@ -6,6 +6,7 @@ import { routes } from './app.routes';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { environment } from '../environment';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -45,5 +46,13 @@ export const appConfig: ApplicationConfig = {
       multi: true
     },
     provideHttpClient(withInterceptors([authHttpInterceptorFn])), provideAnimationsAsync(),
+    {
+      provide: DateAdapter,
+      useClass: NativeDateAdapter
+    },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: MAT_NATIVE_DATE_FORMATS
+    }
   ]
 };
