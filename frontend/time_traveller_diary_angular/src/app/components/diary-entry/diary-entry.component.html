@@ -1,43 +1,57 @@
-<div class="diary-form-container">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <mat-form-field>
-          <mat-label>Today is?</mat-label>
-          <input matInput [matDatepicker]="datepicker" formControlName="date">
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
-          <mat-datepicker #datepicker></mat-datepicker>
+<div class="form-wrapper">
+  <form [formGroup]="form">
+    <!-- first row for date picker -->
+    <mat-form-field class="date-row">
+      <mat-label>Today is?</mat-label>
+      <input matInput [matDatepicker]="datepicker" formControlName="date">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker></mat-datepicker>
+    </mat-form-field>
+    
+    <!-- repeating array diary entries -->
+    <div formArrayName="diaryEntries" *ngFor="let entry of diaryEntries.controls; let i = index" class="diary-entry">
+      <!-- first row of each diary entries -->
+      <!-- moodand time period dropdowns -->
+      <div class="diary-addon">
+        <!-- time period dropdown -->
+        <mat-form-field appearance="fill" class="diary-addon-item">
+          <mat-label>Time Period</mat-label>
+          <mat-select [(value)]="timePeriodSelection">
+            @for (timePeriod of timePeriods; track timePeriod) {
+              <mat-option [value]="timePeriod.id">{{timePeriod.value}}</mat-option>
+            }
+          </mat-select>
         </mat-form-field>
-      
-        <!-- <div formArrayName="entries">
-          <div *ngFor="let entry of entries.controls; let i = index" [formGroupName]="i">
-            <h4>Diary Entry {{ i + 1 }}</h4>
-            
-            <label for="timePeriod">Time Period:</label>
-            <input id="timePeriod" formControlName="timePeriod" />
-            
-            <label for="description">Description:</label>
-            <textarea id="description" formControlName="description"></textarea>
-            
-            <label for="mood">Mood:</label>
-            <select id="mood" formControlName="mood">
-              <option value="">Select Mood</option>
-              <option value="happy">Happy</option>
-              <option value="sad">Sad</option>
-              <option value="neutral">Neutral</option>
-              <option value="excited">Excited</option>
-              <option value="anxious">Anxious</option>
-            </select>
-            
-            <button type="button" (click)="removeEntry(i)">Remove Entry</button>
-          </div>
-        </div>
-       -->
-        <button type="button" (click)="addDiaryEntry()">Add New Row</button>
-        <button type="submit" [disabled]="form.invalid">Submit</button>
+  
+        <!-- mood dropdown -->
+        <mat-form-field appearance="fill" class="diary-addon-item">
+          <mat-label>Mood</mat-label>
+          <mat-select [(value)]="moodSelection">
+            @for (mood of moods; track mood) {
+              <mat-option [value]="mood.id">{{mood.value}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <!-- diary content -->
+      <mat-form-field appearance="fill" class="description-area">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="What's on your mind?"></textarea>
+      </mat-form-field>
 
-        <button mat-flat-button (click)="onClose()">
-            Close
-        </button>
-    </form>
-
+      <button mat-mini-fab class="add-diary-entry" (click)="addDiaryEntry()">
+        <mat-icon>add</mat-icon>
+    </button>
+    </div>
+    
+    
+    <!-- <button mat-flat-button (click)="addDiaryEntry()">Add New Row</button> -->
+    <div class="utility-bar">
+      <button mat-flat-button (click)="onClose()">Close</button>
+      <button mat-flat-button (click)="onSubmit()" [disabled]="!form.dirty || form.invalid">Submit</button>
+    </div>
+    
+  </form>
 </div>

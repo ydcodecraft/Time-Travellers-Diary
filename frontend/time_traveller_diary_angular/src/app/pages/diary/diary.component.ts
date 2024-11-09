@@ -130,7 +130,8 @@ export class DiaryComponent implements OnInit{
 
   public openDiaryEntry(diaryEntry: any) {
     const dialogRef = this.dialog.open(DiaryEntryComponent, {
-      data: diaryEntry
+      data: diaryEntry,
+      minWidth: '60vw',
     });
   }
 }

@@ -1,4 +1,45 @@
-.diary-form-container {
-    height: 70vh;
-    width: 60vw;
+.form-wrapper {
+    height: 90vh;
+    width: 100%;
+    
+    form {
+        margin: 2rem;
+    }
+
+    .date-row {
+        width: 100%;
+    }
+
+    .diary-entry {
+        display: grid;
+        grid-template-columns: 1fr;
+        //gap: 1rem;
+    }
+
+    .diary-addon {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        
+    }
+
+    .description-area {
+        width: 100%;
+        grid-column: span 1;
+        grid-row: span 3;
+    }
+
+    .add-diary-entry {
+        margin: 0;
+        justify-self: center;
+    }
+
+    .utility-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 1rem;
+    }
+    
 }
