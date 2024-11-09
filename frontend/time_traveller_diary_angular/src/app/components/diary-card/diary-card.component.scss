@@ -1,7 +1,9 @@
 .diary-card-container {
     width: 20vw;
-    height: 35vh;
-    
+    min-height: 35vh;
+    height: 100%;
+    background-color: #e7e8cc;
+
     .diary-card-title {
         font-size: 1.5rem;
         font-weight: 700;
@@ -12,4 +14,3 @@
         font-weight: 500;
     }
 }
-

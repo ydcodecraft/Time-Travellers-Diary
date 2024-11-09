@@ -1,15 +1,15 @@
-<!-- because we are using multiple ng keywords for our div, we need ng-container or it would create another layer or div in the virtual DOM tree -->
 <div class="diary-card-grid">
-    <mat-card class="new-diary-card" appearance="outlined">
+    <div class="new-diary-card" appearance="outlined">
+        <h4>Record A New Day</h4>
         <button mat-mini-fab class="add-new-diary">
             <mat-icon>add</mat-icon>
         </button>
-    </mat-card>
-    
+    </div>
 
+    <!-- because we are using multiple ng keywords for our div, we need ng-container or it would create another layer or div in the virtual DOM tree -->
     <ng-container *ngIf="diaryData?.length > 0">
-        <div *ngFor="let diaryEntry of diaryData" class="diary-card-container">
+        <ng-container *ngFor="let diaryEntry of diaryData">
             <app-diary-card [diaryData]="diaryEntry" (click)="openDiaryEntry(diaryEntry)"></app-diary-card>
-        </div>
+        </ng-container>
     </ng-container>
 </div>
