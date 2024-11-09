@@ -25,7 +25,30 @@ export class DiaryEntryComponent implements OnInit{
   public moodSelection: any;
   
   // placeholder for now
-  public timePeriods: any;
+  public timePeriods = [
+    { 
+      id: 1,
+      value: "viking"
+    }, 
+    {
+      id: 2,
+      value: "bronze age"
+    }, 
+    {
+      id: 3,
+      value: "medieval"
+    }, 
+    {
+      id: 4,
+      value: "modern time"
+    },
+    {
+      id: 5,
+      value: "Afternoon"
+    }
+  ];
+
+
   public moods: any;
 
   constructor(
@@ -34,13 +57,7 @@ export class DiaryEntryComponent implements OnInit{
     private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       date: ['', Validators.required],
-      diaryEntries: this.formBuilder.array([
-        this.formBuilder.group({
-          timePeriod: ['', Validators.required],
-          mood: ['', Validators.required],
-          description : ['', Validators.required],
-        })
-      ])
+      diaryEntries: this.formBuilder.array([])
     })
   }
 
@@ -50,8 +67,34 @@ export class DiaryEntryComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.form.get('date')?.setValue(this.diaryData.date);
+    this.addDiaryEntry();
+
+
+    if (this.diaryData?.date) {
+      this.form.get('date')?.setValue(this.diaryData.date);
+    }
+    
+    console.log(this.diaryData);
+    console.log(this.diaryData?.entries);
+
+    if (this.diaryData?.entries) {
+      for (let entry of this.diaryData?.entries) {
+        console.log(entry.timePeriod);
+        console.log(entry.mood);
+        const entryFormGroup = this.formBuilder.group({
+          timePeriod: [entry.timePeriod.id, Validators.required],
+          mood: [entry.mood.id, Validators.required],
+          description : [entry.description, Validators.required],
+        })
+        this.diaryEntries?.push(entryFormGroup);
+      }
+      // this.diaryEntries?.push(this.diaryData.entries);
+    }
+
     console.log(this.diaryEntries);
+
+    // this.form.get('diaryEntries')?.setValue(this.diaryData.diaryEntries);
+    // console.log(this.diaryEntries);
     // if (!this.diaryData) {
     //   this.addDiaryEntry();
     // }

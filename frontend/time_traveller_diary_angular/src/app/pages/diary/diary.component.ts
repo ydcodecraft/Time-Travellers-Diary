@@ -29,14 +29,14 @@ export class DiaryComponent implements OnInit{
         date: "2024-06-15",
         entries: [
           {
-            timePeriod: "Morning",
+            timePeriod: { id: 1, value: "Morning" },
             description: "Spent the morning at the beach with friends. The weather was perfect!",
-            mood: "happy"
+            mood: { id: 1, value: "happy" }
           },
           {
-            timePeriod: "Afternoon",
+            timePeriod: { id: 2, value: "Afternoon" },
             description: "Had lunch at a beachside cafe. Delicious seafood!",
-            mood: "satisfied"
+            mood: { id: 2, value: "satisfied" }
           }
         ]
       },
@@ -45,9 +45,9 @@ export class DiaryComponent implements OnInit{
         date: "2024-06-16",
         entries: [
           {
-            timePeriod: "Evening",
+            timePeriod: { id: 3, value: "Evening" },
             description: "Tried cooking a new pasta recipe. It was a success!",
-            mood: "satisfied"
+            mood: { id: 2, value: "satisfied" }
           }
         ]
       },
@@ -56,9 +56,9 @@ export class DiaryComponent implements OnInit{
         date: "2024-06-17",
         entries: [
           {
-            timePeriod: "All Day",
+            timePeriod: { id: 4, value: "All Day" },
             description: "It rained all day today. I stayed in and read a book.",
-            mood: "reflective"
+            mood: { id: 3, value: "reflective" }
           }
         ]
       },
@@ -67,9 +67,9 @@ export class DiaryComponent implements OnInit{
         date: "2024-06-18",
         entries: [
           {
-            timePeriod: "Morning",
+            timePeriod: { id: 1, value: "Morning" },
             description: "Completed my workout goals at the gym.",
-            mood: "motivated"
+            mood: { id: 4, value: "motivated" }
           }
         ]
       },
@@ -78,9 +78,9 @@ export class DiaryComponent implements OnInit{
         date: "2024-06-19",
         entries: [
           {
-            timePeriod: "Evening",
+            timePeriod: { id: 3, value: "Evening" },
             description: "Watched a movie with my family. We laughed so much!",
-            mood: "joyful"
+            mood: { id: 5, value: "joyful" }
           }
         ]
       },
@@ -89,9 +89,9 @@ export class DiaryComponent implements OnInit{
         date: "2024-06-20",
         entries: [
           {
-            timePeriod: "Weekend",
+            timePeriod: { id: 5, value: "Weekend" },
             description: "Went for a weekend getaway to the mountains.",
-            mood: "content"
+            mood: { id: 6, value: "content" }
           }
         ]
       },
@@ -100,9 +100,9 @@ export class DiaryComponent implements OnInit{
         date: "2024-06-21",
         entries: [
           {
-            timePeriod: "Afternoon",
+            timePeriod: { id: 2, value: "Afternoon" },
             description: "Felt anxious about an upcoming presentation.",
-            mood: "anxious"
+            mood: { id: 7, value: "anxious" }
           }
         ]
       },
@@ -111,13 +111,14 @@ export class DiaryComponent implements OnInit{
         date: "2024-06-22",
         entries: [
           {
-            timePeriod: "Evening",
+            timePeriod: { id: 3, value: "Evening" },
             description: "Had a deep conversation with a friend.",
-            mood: "grateful"
+            mood: { id: 8, value: "grateful" }
           }
         ]
       }
     ];
+    
     this.diaryData = mockDiaryData;
 
 

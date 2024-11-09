@@ -8,42 +8,47 @@
       <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
       <mat-datepicker #datepicker></mat-datepicker>
     </mat-form-field>
-    
-    <!-- repeating array diary entries -->
-    <div formArrayName="diaryEntries" *ngFor="let entry of diaryEntries.controls; let i = index" class="diary-entry">
-      <!-- first row of each diary entries -->
-      <!-- moodand time period dropdowns -->
-      <div class="diary-addon">
-        <!-- time period dropdown -->
-        <mat-form-field appearance="fill" class="diary-addon-item">
-          <mat-label>Time Period</mat-label>
-          <mat-select [(value)]="timePeriodSelection">
-            @for (timePeriod of timePeriods; track timePeriod) {
-              <mat-option [value]="timePeriod.id">{{timePeriod.value}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-  
-        <!-- mood dropdown -->
-        <mat-form-field appearance="fill" class="diary-addon-item">
-          <mat-label>Mood</mat-label>
-          <mat-select [(value)]="moodSelection">
-            @for (mood of moods; track mood) {
-              <mat-option [value]="mood.id">{{mood.value}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-      </div>
-  
-      <!-- diary content -->
-      <mat-form-field appearance="fill" class="description-area">
-        <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description" placeholder="What's on your mind?"></textarea>
-      </mat-form-field>
 
-      <button mat-mini-fab class="add-diary-entry" (click)="addDiaryEntry()">
-        <mat-icon>add</mat-icon>
-    </button>
+    <!-- repeating array diary entries -->
+    <div formArrayName="diaryEntries">
+      <!-- setting the formGroupName to be the index of the current iteration in the formArray, this is requried for correct form navigation path -->
+      <div *ngFor="let entry of diaryEntries.controls; let i = index" formGroupName="{{i}}" class="diary-entry">
+        <!-- first row of each diary entries -->
+        <!-- moodand time period dropdowns -->
+        <div class="diary-addon">
+          <!-- time period dropdown -->
+          <mat-form-field appearance="fill" class="diary-addon-item">
+            <mat-label>Time Period</mat-label>
+            <!-- <mat-select [(value)]="timePeriodSelection"> -->
+            <mat-select formControlName="timePeriod"> 
+              <!-- iterating through the option array and bind them into mat option dynamicaly -->
+              @for (timePeriod of timePeriods; track timePeriod) {
+                <mat-option [value]="timePeriod.id">{{timePeriod.value}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+    
+          <!-- mood dropdown -->
+          <mat-form-field appearance="fill" class="diary-addon-item">
+            <mat-label>Mood</mat-label>
+            <mat-select formControlName="mood"  [(value)]="moodSelection">
+              @for (mood of moods; track mood) {
+                <mat-option [value]="mood.id">{{mood.value}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+    
+        <!-- diary content -->
+        <mat-form-field appearance="fill" class="description-area">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" placeholder="What's on your mind?"></textarea>
+        </mat-form-field>
+
+        <button mat-mini-fab class="add-diary-entry" (click)="addDiaryEntry()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
     </div>
     
     
