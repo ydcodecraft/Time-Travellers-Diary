@@ -3,7 +3,6 @@
 const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
-const replace = require('replace-in-file');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -34,22 +33,29 @@ const replacements = [
     to: `audience: '${process.env.AUTH0_AUDIENCE}',`,
   },
   {
-    from: /uri: '.*?'\s*}/g,
+    from: /uri: '.*?'\s*\}/g,
     to: `uri: '${process.env.BACKEND_URI}'\n    }`,
   },
 ];
 
-// Perform the replacements using replace-in-file
-const options = {
-  files: envFilePath,
-  from: replacements.map(r => r.from),
-  to: replacements.map(r => r.to),
-};
+// Async IIFE to handle dynamic import
+(async () => {
+  try {
+    // Dynamically import replace-in-file
+    const replaceModule = await import('replace-in-file');
+    const replace = replaceModule.default || replaceModule;
 
-try {
-  replace.sync(options);
-  console.log('✅ Environment variables have been injected into environment.ts');
-} catch (error) {
-  console.error('❌ Error injecting environment variables:', error);
-  process.exit(1);
-}
+    // Perform the replacements using replace-in-file
+    const options = {
+      files: envFilePath,
+      from: replacements.map(r => r.from),
+      to: replacements.map(r => r.to),
+    };
+
+    await replace(options);
+    console.log('✅ Environment variables have been injected into environment.ts');
+  } catch (error) {
+    console.error('❌ Error injecting environment variables:', error);
+    process.exit(1);
+  }
+})();
