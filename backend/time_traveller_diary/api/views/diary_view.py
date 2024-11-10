@@ -41,7 +41,6 @@ class DiaryListCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
         time_traveller = TimeTraveller.objects.get(user=self.request.user)
         serializer.save(time_traveller=time_traveller)
 
-
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
     
@@ -49,7 +48,6 @@ class DiaryListCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
 
 # get, delete, update specific diary entry 
 class DiaryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Diary.objects.all()
     serializer_class = DiarySerializer
 
     # Return a specific diary entry for the logged-in user

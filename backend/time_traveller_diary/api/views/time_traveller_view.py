@@ -7,3 +7,10 @@ from api.models.time_traveller import TimeTraveller
 class TimeTravellerListCreateView(generics.ListCreateAPIView):
     queryset = TimeTraveller.objects.all()
     serializer_class = TimeTravellerSerializer
+
+
+class TimeTravellerRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TimeTraveller.objects.all()
+    serializer_class = TimeTravellerSerializer
+
+    
