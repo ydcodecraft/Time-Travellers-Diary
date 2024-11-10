@@ -25,7 +25,6 @@
     ],
     "typeRoots": ["node_modules/@angular/material"]
   },
-  "include": ["set-env.ts", "src/**/*.ts"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

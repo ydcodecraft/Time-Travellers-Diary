@@ -1,8 +1,8 @@
-// set-env.ts
+// set-env.js
 
-import * as fs from 'fs';
-import * as path from 'path';
-import * as dotenv from 'dotenv';
+const fs = require('fs');
+const path = require('path');
+const dotenv = require('dotenv');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -25,7 +25,7 @@ requiredVars.forEach(varName => {
 });
 
 // Paths to the template and target environment files
-const templatePath = path.join(__dirname, 'src', 'environments', 'environment.template.ts');
+const templatePath = path.join(__dirname, 'src', 'environments', 'environment.prod.ts');
 const envFilePath = path.join(__dirname, 'src', 'environments', 'environment.ts');
 
 // Read the template file
