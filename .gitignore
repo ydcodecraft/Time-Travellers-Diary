@@ -1,2 +1,4 @@
 backend/env/*
 *.pyc
+time_travellers_diary_api/*
+.env
