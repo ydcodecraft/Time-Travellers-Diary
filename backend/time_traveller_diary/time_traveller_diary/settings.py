@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-j3!4=+s!m)g$)loqrlo#v0a*jd@v%t5+=(nr#@8n5awzq8us=g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# had to hard code this for pythonanywhere deployment, need to figure out something better
+ALLOWED_HOSTS = ["ydcodecraft.pythonanywhere.com"]
 
 
 # Application definition
@@ -74,8 +75,10 @@ JWT_AUTH = {
 
 # CORS_ALLOW_ALL_ORIGINS = True
 
+# had to hard code this for pythonanywhere deployment, need to figure out something better
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200"
+    "http://localhost:4200",
+    "https://time-travellers-diary.vercel.app/",
 ]
 
 ROOT_URLCONF = 'time_traveller_diary.urls'
