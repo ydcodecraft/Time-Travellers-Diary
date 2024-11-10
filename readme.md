@@ -1,4 +1,4 @@
-Live URL: https://time-travellers-diary.vercel.app\
+Live URL: https://time-travellers-diary.vercel.app
 
 
 Front-End Framework - Angular\
