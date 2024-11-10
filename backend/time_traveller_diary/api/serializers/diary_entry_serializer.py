@@ -6,3 +6,9 @@ class DiaryEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = DiaryEntry
         fields = "__all__"
+
+
+class DiaryEntryCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiaryEntry
+        fields = ["description", "mood", "time_period"]

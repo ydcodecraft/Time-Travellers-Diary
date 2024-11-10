@@ -1,22 +1,26 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics, mixins
 from rest_framework.permissions import IsAuthenticated
 
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
 from api.models.diary import Diary
-from api.serializers.diary_serializer import DiarySerializer
+from api.serializers.diary_serializer import DiaryCreateSerializer, DiarySerializer
 from api.models.time_traveller import TimeTraveller
 from api.models.app_user import AppUser
 
 
 
 # handle creation and listing all diaries
-class DiaryCreateListView(generics.GenericAPIView):
+class DiaryListCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
     serializer_class = DiarySerializer
 
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return DiaryCreateSerializer
+        return DiarySerializer
 
     # set this up to use drf spectacular to annotate the swagger doc
     def get(self, request, *args, **kwargs):
@@ -31,26 +35,16 @@ class DiaryCreateListView(generics.GenericAPIView):
         serializer = self.get_serializer(diary_list, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-
-    # Automatically set the time traveller to the logged-in time traveller when creating a diary entry
-    # def perform_create(self, serializer):
-    #     # get the time traveller for the currently logged in user
-    #     time_traveller = TimeTraveller.objects.get(user=self.request.user)
-
-    #     serializer.save(time_traveller=time_traveller)
-
-
-#  create a single diary entry
-class DiaryCreateView(generics.CreateAPIView):
-    serializer_class = DiarySerializer
-
     # Automatically set the time traveller to the logged-in time traveller when creating a diary entry
     def perform_create(self, serializer):
         # get the time traveller for the currently logged in user
         time_traveller = TimeTraveller.objects.get(user=self.request.user)
-
         serializer.save(time_traveller=time_traveller)
 
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+    
 
 
 # get, delete, update specific diary entry 
@@ -65,7 +59,7 @@ class DiaryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
         return Diary.objects.filter(time_traveller=time_traveller)
 
-@api_view()
-def authorized_heart_beat_test(request):
-    return Response("You have to be authorized to see this!")
+# @api_view()
+# def authorized_heart_beat_test(request):
+#     return Response("You have to be authorized to see this!")
 
