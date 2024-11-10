@@ -10,7 +10,6 @@ from .time_period import TimePeriod
 class DiaryEntry(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     diary = models.ForeignKey(Diary, on_delete=models.CASCADE, related_name='diary_entries')
-    title = models.CharField(max_length=200)
     time = models.TimeField(auto_now_add=True)
     description = models.TextField()
     mood = models.ForeignKey(Mood, blank=True, null=True, on_delete=models.SET_NULL)
