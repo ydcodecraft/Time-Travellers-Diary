@@ -78,7 +78,7 @@ JWT_AUTH = {
 # had to hard code this for pythonanywhere deployment, need to figure out something better
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
-    "https://time-travellers-diary.vercel.app/",
+    "https://time-travellers-diary.vercel.app",
 ]
 
 ROOT_URLCONF = 'time_traveller_diary.urls'
