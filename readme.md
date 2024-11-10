@@ -1,3 +1,6 @@
+Live URL: https://time-travellers-diary-bm2lpad7s-ydcodecrafts-projects.vercel.app/\
+
+
 Front-End Framework - Angular\
 Back-End Framework - Django Rest Framework\
 Identity Management and Auth Platform - Auth0\
