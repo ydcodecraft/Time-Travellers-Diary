@@ -126,7 +126,7 @@ export class DiaryComponent implements OnInit{
 
   // return a list of diary dtos
   private fetchDiaries(): void {
-    throw("not implemented")
+    
   }
 
   public openDiaryEntry(diaryEntry: any) {
