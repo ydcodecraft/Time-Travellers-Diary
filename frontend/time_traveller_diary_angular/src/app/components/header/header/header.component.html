@@ -3,10 +3,16 @@
         <img/>
     </div>
     <div class="header-nav-menu">
-        <a routerLink="/">
+        <a>
             <button mat-flat-button (click)="redirectToHome()">
                 <mat-icon>home</mat-icon>
                 Home
+            </button>
+        </a>
+        <a>
+            <button mat-flat-button (click)="redirectToDashboard()">
+                <mat-icon>dashboard</mat-icon>
+                Diary Dashboard
             </button>
         </a>
         <div *ngIf="!isLoggedIn">
