@@ -38,7 +38,8 @@ envTemplate = envTemplate
   .replace(/\${AUTH0_CLIENT_ID}/g, process.env['AUTH0_CLIENT_ID'] || '')
   .replace(/\${AUTH0_REDIRECT_URI}/g, process.env['AUTH0_REDIRECT_URI'] || '')
   .replace(/\${AUTH0_AUDIENCE}/g, process.env['AUTH0_AUDIENCE'] || '')
-  .replace(/\${BACKEND_URI}/g, process.env['BACKEND_URI'] || '');
+  .replace(/\${BACKEND_URI}/g, process.env['BACKEND_URI'] || '')
+  .replace(/\${NPM_PKG_AITHUB_AUTH_TOKEN}/g, process.env['NPM_PKG_AITHUB_AUTH_TOKEN'] || '');
 
 // Write the updated environment.ts file
 fs.writeFileSync(envFilePath, envTemplate, 'utf8');
