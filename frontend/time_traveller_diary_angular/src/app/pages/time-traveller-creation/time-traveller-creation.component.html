@@ -1,0 +1,34 @@
+<mat-stepper [linear]="'True'" #stepper>
+    <mat-step>
+        <ng-template matStepLabel>Introduction</ng-template>
+        <p>Welcome! Traveller! Tell us about yourself!</p>
+        <div>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step [stepControl]="bioFormGroup">
+        <form [formGroup]="bioFormGroup">
+            <ng-template matStepLabel>You are?</ng-template>
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Our fantasy adventurer's name" formControlName="name" required>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Age</mat-label>
+                <input matInput placeholder="e.g. 18" formControlName="age" required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Previous</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Ready To Go!</ng-template>
+        <p>Adventure awaits!</p>
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+    </mat-step>
+</mat-stepper>
