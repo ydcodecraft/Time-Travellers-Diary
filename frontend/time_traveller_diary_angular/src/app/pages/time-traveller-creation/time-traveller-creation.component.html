@@ -15,7 +15,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Age</mat-label>
-                <input matInput placeholder="e.g. 18" formControlName="age" required>
+                <input matInput type="number" min="8" max="120" placeholder="e.g. 18" formControlName="age" required>
             </mat-form-field>
             <div>
                 <button mat-button matStepperPrevious>Previous</button>
@@ -27,8 +27,9 @@
         <ng-template matStepLabel>Ready To Go!</ng-template>
         <p>Adventure awaits!</p>
         <div>
-            <button mat-button matStepperPrevious>Back</button>
             <button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="onSubmit()">Let's go!</button>
         </div>
     </mat-step>
 </mat-stepper>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
+import { TimeTravellerService } from '@ydcodecraft/time_travellers_diary_api';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Injectable({
@@ -15,7 +16,8 @@ export class CustomAuthService {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private timeTravellerService: TimeTravellerService
   ) {
     this.auth.isAuthenticated$.subscribe(isAuthenticated => {
       // emit the signal and other components that subscribe to this will receive it  
@@ -30,6 +32,28 @@ export class CustomAuthService {
             localStorage.setItem("auth0", token);
           }
         })
+
+     
+        this.auth.user$.subscribe((result) => {
+          let snaitized_sub = result?.sub?.replace('|','.');
+          console.log(snaitized_sub);
+          if (snaitized_sub !== null && snaitized_sub !== undefined) {
+            this.timeTravellerService.timeTravellerCheckRetrieve(snaitized_sub).subscribe({
+              // didn't find any time traveller, redirect to time traveller creaton screen
+              error: (err) => {
+                if(err.status === 404) {
+                  this.router.navigate(['/time-traveller-creation']);
+                }
+                else {
+                  
+                  console.error(err);
+                }
+              }
+            })
+          }
+        })
+        // this.timeTravellerService.timeTravellerCheckRetrieve()
+      
       }
     });
   }
@@ -37,7 +61,8 @@ export class CustomAuthService {
   login() {
     console.log('trying to login');
     this.auth.loginWithRedirect().subscribe(() => {
-        this.router.navigate(['/diary-dashboard'])
+        // this.router.navigate(['/diary-dashboard'])
+        this.router.navigate(['/']);
       });
   }
 
