@@ -9,5 +9,5 @@ class MoodListCreateView(generics.ListCreateAPIView):
     
 
 class MoodRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Mood.obejcts.all()
+    queryset = Mood.objects.all()
     serializer_class = MoodSerializer

@@ -1,0 +1,1080 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /diary/:
+    get:
+      operationId: diary_retrieve
+      tags:
+      - diary
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diary'
+          description: ''
+    post:
+      operationId: diary_create
+      tags:
+      - diary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiaryCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DiaryCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DiaryCreate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiaryCreate'
+          description: ''
+  /diary/{id}/:
+    get:
+      operationId: diary_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - diary
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diary'
+          description: ''
+    put:
+      operationId: diary_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - diary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Diary'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Diary'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Diary'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diary'
+          description: ''
+    patch:
+      operationId: diary_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - diary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDiary'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDiary'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDiary'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diary'
+          description: ''
+    delete:
+      operationId: diary_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - diary
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /diary_entry/:
+    get:
+      operationId: diary_entry_list
+      tags:
+      - diary_entry
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DiaryEntry'
+          description: ''
+    post:
+      operationId: diary_entry_create
+      tags:
+      - diary_entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiaryEntryCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DiaryEntryCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DiaryEntryCreate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiaryEntryCreate'
+          description: ''
+  /diary_entry/{id}/:
+    get:
+      operationId: diary_entry_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - diary_entry
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiaryEntry'
+          description: ''
+    put:
+      operationId: diary_entry_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - diary_entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiaryEntry'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DiaryEntry'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DiaryEntry'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiaryEntry'
+          description: ''
+    patch:
+      operationId: diary_entry_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - diary_entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDiaryEntry'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDiaryEntry'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDiaryEntry'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiaryEntry'
+          description: ''
+    delete:
+      operationId: diary_entry_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - diary_entry
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /mood/:
+    get:
+      operationId: mood_list
+      tags:
+      - mood
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mood'
+          description: ''
+    post:
+      operationId: mood_create
+      tags:
+      - mood
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mood'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Mood'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Mood'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mood'
+          description: ''
+  /mood/{id}/:
+    get:
+      operationId: mood_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - mood
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mood'
+          description: ''
+    put:
+      operationId: mood_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - mood
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mood'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Mood'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Mood'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mood'
+          description: ''
+    patch:
+      operationId: mood_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - mood
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMood'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMood'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMood'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mood'
+          description: ''
+    delete:
+      operationId: mood_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - mood
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /time_period/:
+    get:
+      operationId: time_period_list
+      tags:
+      - time_period
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TimePeriod'
+          description: ''
+    post:
+      operationId: time_period_create
+      tags:
+      - time_period
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimePeriod'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TimePeriod'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TimePeriod'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimePeriod'
+          description: ''
+  /time_period/{id}/:
+    get:
+      operationId: time_period_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - time_period
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimePeriod'
+          description: ''
+    put:
+      operationId: time_period_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - time_period
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimePeriod'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TimePeriod'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TimePeriod'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimePeriod'
+          description: ''
+    patch:
+      operationId: time_period_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - time_period
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTimePeriod'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTimePeriod'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTimePeriod'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimePeriod'
+          description: ''
+    delete:
+      operationId: time_period_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - time_period
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /time_traveller/:
+    get:
+      operationId: time_traveller_list
+      tags:
+      - time_traveller
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TimeTraveller'
+          description: ''
+    post:
+      operationId: time_traveller_create
+      tags:
+      - time_traveller
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeTraveller'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TimeTraveller'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TimeTraveller'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeTraveller'
+          description: ''
+  /time_traveller/{id}/:
+    get:
+      operationId: time_traveller_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - time_traveller
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeTraveller'
+          description: ''
+    put:
+      operationId: time_traveller_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - time_traveller
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeTraveller'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TimeTraveller'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TimeTraveller'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeTraveller'
+          description: ''
+    patch:
+      operationId: time_traveller_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - time_traveller
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTimeTraveller'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTimeTraveller'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTimeTraveller'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeTraveller'
+          description: ''
+    delete:
+      operationId: time_traveller_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - time_traveller
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Diary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        diary_entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryEntry'
+          readOnly: true
+          nullable: true
+        date:
+          type: string
+          format: date
+        is_active:
+          type: boolean
+        time_traveller:
+          type: string
+          format: uuid
+      required:
+      - date
+      - diary_entries
+      - id
+      - time_traveller
+    DiaryCreate:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        is_active:
+          type: boolean
+        diary_entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryEntryCreate'
+          nullable: true
+      required:
+      - date
+      - diary_entries
+    DiaryEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        time:
+          type: string
+          format: time
+          readOnly: true
+        description:
+          type: string
+        is_active:
+          type: boolean
+        diary:
+          type: string
+          format: uuid
+        mood:
+          type: string
+          format: uuid
+          nullable: true
+        time_period:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - description
+      - diary
+      - id
+      - time
+    DiaryEntryCreate:
+      type: object
+      properties:
+        description:
+          type: string
+        mood:
+          type: string
+          format: uuid
+          nullable: true
+        time_period:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - description
+    Mood:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        label:
+          type: string
+          maxLength: 20
+      required:
+      - id
+      - label
+    PatchedDiary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        diary_entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryEntry'
+          readOnly: true
+          nullable: true
+        date:
+          type: string
+          format: date
+        is_active:
+          type: boolean
+        time_traveller:
+          type: string
+          format: uuid
+    PatchedDiaryEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        time:
+          type: string
+          format: time
+          readOnly: true
+        description:
+          type: string
+        is_active:
+          type: boolean
+        diary:
+          type: string
+          format: uuid
+        mood:
+          type: string
+          format: uuid
+          nullable: true
+        time_period:
+          type: string
+          format: uuid
+          nullable: true
+    PatchedMood:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        label:
+          type: string
+          maxLength: 20
+    PatchedTimePeriod:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        label:
+          type: string
+          maxLength: 100
+    PatchedTimeTraveller:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        character_name:
+          type: string
+          maxLength: 150
+        age:
+          type: integer
+          maximum: 99
+          minimum: -2147483648
+        user:
+          type: string
+          format: uuid
+    TimePeriod:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        label:
+          type: string
+          maxLength: 100
+      required:
+      - id
+      - label
+    TimeTraveller:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        character_name:
+          type: string
+          maxLength: 150
+        age:
+          type: integer
+          maximum: 99
+          minimum: -2147483648
+        user:
+          type: string
+          format: uuid
+      required:
+      - age
+      - character_name
+      - id
+      - user
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-j3!4=+s!m)g$)loqrlo#v0a*jd@v%t5+=(nr#@8n5awzq8us=g
 DEBUG = True
 
 # had to hard code this for pythonanywhere deployment, need to figure out something better
-ALLOWED_HOSTS = ["ydcodecraft.pythonanywhere.com"]
+ALLOWED_HOSTS = [
+    "ydcodecraft.pythonanywhere.com",
+    "127.0.0.1"]
 
 
 # Application definition
