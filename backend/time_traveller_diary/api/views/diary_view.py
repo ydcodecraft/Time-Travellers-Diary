@@ -22,7 +22,11 @@ class DiaryListCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
             return DiaryCreateSerializer
         return DiarySerializer
 
+
     # set this up to use drf spectacular to annotate the swagger doc
+    @extend_schema(
+        responses={200: DiarySerializer(many=True)}
+    )
     def get(self, request, *args, **kwargs):
         app_user = AppUser.objects.get(username=self.request.user)
         

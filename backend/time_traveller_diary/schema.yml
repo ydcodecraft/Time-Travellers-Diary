@@ -5,7 +5,7 @@ info:
 paths:
   /diary/:
     get:
-      operationId: diary_retrieve
+      operationId: diary_list
       tags:
       - diary
       security:
@@ -15,7 +15,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Diary'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Diary'
           description: ''
     post:
       operationId: diary_create
@@ -44,7 +46,7 @@ paths:
           description: ''
   /diary/{id}/:
     get:
-      operationId: diary_retrieve_2
+      operationId: diary_retrieve
       parameters:
       - in: path
         name: id
@@ -902,30 +904,32 @@ components:
           type: string
           format: uuid
           readOnly: true
+        diary:
+          type: string
+          format: uuid
         time:
           type: string
           format: time
           readOnly: true
         description:
           type: string
+        mood:
+          allOf:
+          - $ref: '#/components/schemas/Mood'
+          readOnly: true
+        time_period:
+          allOf:
+          - $ref: '#/components/schemas/TimePeriod'
+          readOnly: true
         is_active:
           type: boolean
-        diary:
-          type: string
-          format: uuid
-        mood:
-          type: string
-          format: uuid
-          nullable: true
-        time_period:
-          type: string
-          format: uuid
-          nullable: true
       required:
       - description
       - diary
       - id
+      - mood
       - time
+      - time_period
     DiaryEntryCreate:
       type: object
       properties:
@@ -982,25 +986,25 @@ components:
           type: string
           format: uuid
           readOnly: true
+        diary:
+          type: string
+          format: uuid
         time:
           type: string
           format: time
           readOnly: true
         description:
           type: string
+        mood:
+          allOf:
+          - $ref: '#/components/schemas/Mood'
+          readOnly: true
+        time_period:
+          allOf:
+          - $ref: '#/components/schemas/TimePeriod'
+          readOnly: true
         is_active:
           type: boolean
-        diary:
-          type: string
-          format: uuid
-        mood:
-          type: string
-          format: uuid
-          nullable: true
-        time_period:
-          type: string
-          format: uuid
-          nullable: true
     PatchedMood:
       type: object
       properties:

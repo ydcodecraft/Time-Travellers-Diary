@@ -5,7 +5,6 @@ from .views import diary_view, diary_entry_view, time_traveller_view, time_perio
 
 urlpatterns = [
     path('diary/', diary_view.DiaryListCreateView.as_view(), name='diary_list_create'),
-    # path('diary/', diary_view.DiaryCreateView.as_view(), name='diary_create'),
     path('diary/<uuid:pk>/', diary_view.DiaryRetrieveUpdateDestroyView.as_view(), name='diary_retrieve_update_destroy'),
     path('diary_entry/', diary_entry_view.DiaryEntryListCreateView.as_view(), name='diary_entry_list_create'),
     path('diary_entry/<uuid:pk>/', diary_entry_view.DiaryEntryRetrieveUpdateDestroyView.as_view(), name='diary_entry_retrieve_update_destroy'),
