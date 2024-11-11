@@ -10,6 +10,7 @@ urlpatterns = [
     path('diary_entry/<uuid:pk>/', diary_entry_view.DiaryEntryRetrieveUpdateDestroyView.as_view(), name='diary_entry_retrieve_update_destroy'),
     path('time_traveller/', time_traveller_view.TimeTravellerListCreateView.as_view(), name="time_traveller_list_create"),
     path('time_traveller/<uuid:pk>/', time_traveller_view.TimeTravellerRetrieveUpdateDestroyView.as_view(), name="time_traveller_retrieve_update_destroy"),
+    path('time_traveller/check/<str:user_name>/',time_traveller_view.CheckTimeTravellerExistView.as_view(), name="check_time_traveller_exist"),
     path('time_period/', time_period_view.TimePeriodListCreateView.as_view(), name='time_period_list_create'),
     path('time_period/<uuid:pk>/', time_period_view.TimePeriodRetrieveUpdateDestroyView.as_view(), name='time_period_retrieve_update_destroy'),
     path('mood/', mood_view.MoodListCreateView.as_view(), name='mood_list_create'),
