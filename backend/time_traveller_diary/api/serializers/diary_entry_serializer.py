@@ -34,7 +34,7 @@ class DiaryEntrySerializer(serializers.ModelSerializer):
         return None
 
 
-class DiaryEntryCreateSerializer(serializers.ModelSerializer):
+class DiaryEntryUpdateCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiaryEntry
-        fields = ["description", "mood", "time_period"]
+        fields = ["diary", "description", "mood", "time_period"]

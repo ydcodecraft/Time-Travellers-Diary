@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from api.models.diary import Diary
 from api.models.diary_entry import DiaryEntry
-from api.serializers.diary_entry_serializer import DiaryEntryCreateSerializer, DiaryEntrySerializer
+from api.serializers.diary_entry_serializer import DiaryEntryUpdateCreateSerializer, DiaryEntrySerializer
 
 class DiarySerializer(serializers.ModelSerializer):
     diary_entries = DiaryEntrySerializer(many=True, read_only=True, allow_null=True)
@@ -12,7 +12,7 @@ class DiarySerializer(serializers.ModelSerializer):
 
 
 class DiaryCreateSerializer(serializers.ModelSerializer):
-    diary_entries = DiaryEntryCreateSerializer(many=True, allow_null=True)
+    diary_entries = DiaryEntryUpdateCreateSerializer(many=True, allow_null=True)
     class Meta:
         model = Diary
         fields = ['date', 'is_active', 'diary_entries']
