@@ -7,3 +7,9 @@ class TimeTravellerSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimeTraveller
         fields = "__all__"
+
+
+class TimeTravellerCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TimeTraveller
+        fields = ["character_name", "age"]

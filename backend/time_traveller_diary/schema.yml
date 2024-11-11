@@ -736,13 +736,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimeTraveller'
+              $ref: '#/components/schemas/TimeTravellerCreate'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/TimeTraveller'
+              $ref: '#/components/schemas/TimeTravellerCreate'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/TimeTraveller'
+              $ref: '#/components/schemas/TimeTravellerCreate'
         required: true
       security:
       - jwtAuth: []
@@ -751,7 +751,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimeTraveller'
+                $ref: '#/components/schemas/TimeTravellerCreate'
           description: ''
   /time_traveller/{id}/:
     get:
@@ -1091,6 +1091,19 @@ components:
       - character_name
       - id
       - user
+    TimeTravellerCreate:
+      type: object
+      properties:
+        character_name:
+          type: string
+          maxLength: 150
+        age:
+          type: integer
+          maximum: 99
+          minimum: -2147483648
+      required:
+      - age
+      - character_name
   securitySchemes:
     jwtAuth:
       type: http
