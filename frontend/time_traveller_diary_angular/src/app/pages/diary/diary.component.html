@@ -7,7 +7,7 @@
     </div>
 
     <!-- because we are using multiple ng keywords for our div, we need ng-container or it would create another layer or div in the virtual DOM tree -->
-    <ng-container *ngIf="diaryData?.length > 0">
+    <ng-container *ngIf="diaryData && diaryData.length > 0">
         <ng-container *ngFor="let diaryEntry of diaryData">
             <app-diary-card [diaryData]="diaryEntry" (click)="openDiaryEntry(diaryEntry)"></app-diary-card>
         </ng-container>

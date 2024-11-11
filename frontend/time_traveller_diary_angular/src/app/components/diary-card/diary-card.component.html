@@ -1,21 +1,16 @@
 <mat-card class="diary-card-container" appearance="raised">
     <mat-card-header>
         <mat-card-title>
-            {{ diaryData?.date }}
-        </mat-card-title>        
-        <!-- <mat-card-subtitle>
             {{ diaryData.date }}
-        </mat-card-subtitle> -->
+        </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <!-- content projection so that parent component can format the description however it wants to -->
         <div class="diary-card-description">
             <mat-chip-set>
-                <mat-chip>{{ diaryData?.entries[diaryData?.entries.length -1]?.timePeriod.value }}</mat-chip>
-                <mat-chip>{{ diaryData?.entries[diaryData?.entries.length -1]?.mood.value }}</mat-chip>
+                <mat-chip>{{ latestDiaryEntry?.time_period?.label }}</mat-chip>
+                <mat-chip>{{ latestDiaryEntry?.mood?.label }}</mat-chip>
             </mat-chip-set>
-            <p>{{ diaryData?.entries[diaryData?.entries.length -1]?.description }}</p>
+            <p>{{ latestDiaryEntry?.description }}</p>
         </div>
-        <!-- <ng-content class="diary-card-description" select="[description]"></ng-content> -->
-    </mat-card-content>    
+    </mat-card-content>
 </mat-card>
