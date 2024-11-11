@@ -168,13 +168,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DiaryEntryCreate'
+              $ref: '#/components/schemas/DiaryEntryUpdateCreate'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/DiaryEntryCreate'
+              $ref: '#/components/schemas/DiaryEntryUpdateCreate'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/DiaryEntryCreate'
+              $ref: '#/components/schemas/DiaryEntryUpdateCreate'
         required: true
       security:
       - jwtAuth: []
@@ -183,7 +183,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DiaryEntryCreate'
+                $ref: '#/components/schemas/DiaryEntryUpdateCreate'
           description: ''
   /diary_entry/{id}/:
     get:
@@ -221,13 +221,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DiaryEntry'
+              $ref: '#/components/schemas/DiaryEntryUpdateCreate'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/DiaryEntry'
+              $ref: '#/components/schemas/DiaryEntryUpdateCreate'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/DiaryEntry'
+              $ref: '#/components/schemas/DiaryEntryUpdateCreate'
         required: true
       security:
       - jwtAuth: []
@@ -236,7 +236,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DiaryEntry'
+                $ref: '#/components/schemas/DiaryEntryUpdateCreate'
           description: ''
     patch:
       operationId: diary_entry_partial_update
@@ -253,13 +253,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedDiaryEntry'
+              $ref: '#/components/schemas/PatchedDiaryEntryUpdateCreate'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedDiaryEntry'
+              $ref: '#/components/schemas/PatchedDiaryEntryUpdateCreate'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedDiaryEntry'
+              $ref: '#/components/schemas/PatchedDiaryEntryUpdateCreate'
       security:
       - jwtAuth: []
       responses:
@@ -267,7 +267,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DiaryEntry'
+                $ref: '#/components/schemas/DiaryEntryUpdateCreate'
           description: ''
     delete:
       operationId: diary_entry_destroy
@@ -853,6 +853,26 @@ paths:
       responses:
         '204':
           description: No response body
+  /time_traveller/check/{user_name}/:
+    get:
+      operationId: time_traveller_check_retrieve
+      parameters:
+      - in: path
+        name: user_name
+        schema:
+          type: string
+        required: true
+      tags:
+      - time_traveller
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeTraveller'
+          description: ''
 components:
   schemas:
     Diary:
@@ -892,7 +912,7 @@ components:
         diary_entries:
           type: array
           items:
-            $ref: '#/components/schemas/DiaryEntryCreate'
+            $ref: '#/components/schemas/DiaryEntryUpdateCreate'
           nullable: true
       required:
       - date
@@ -930,9 +950,12 @@ components:
       - mood
       - time
       - time_period
-    DiaryEntryCreate:
+    DiaryEntryUpdateCreate:
       type: object
       properties:
+        diary:
+          type: string
+          format: uuid
         description:
           type: string
         mood:
@@ -945,6 +968,7 @@ components:
           nullable: true
       required:
       - description
+      - diary
     Mood:
       type: object
       properties:
@@ -979,32 +1003,22 @@ components:
         time_traveller:
           type: string
           format: uuid
-    PatchedDiaryEntry:
+    PatchedDiaryEntryUpdateCreate:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
         diary:
           type: string
           format: uuid
-        time:
-          type: string
-          format: time
-          readOnly: true
         description:
           type: string
         mood:
-          allOf:
-          - $ref: '#/components/schemas/Mood'
-          readOnly: true
+          type: string
+          format: uuid
+          nullable: true
         time_period:
-          allOf:
-          - $ref: '#/components/schemas/TimePeriod'
-          readOnly: true
-        is_active:
-          type: boolean
+          type: string
+          format: uuid
+          nullable: true
     PatchedMood:
       type: object
       properties:
