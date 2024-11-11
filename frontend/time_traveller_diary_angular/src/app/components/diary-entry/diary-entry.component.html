@@ -12,18 +12,17 @@
     <!-- repeating array diary entries -->
     <div formArrayName="diaryEntries">
       <!-- setting the formGroupName to be the index of the current iteration in the formArray, this is requried for correct form navigation path -->
-      <div *ngFor="let entry of diaryEntries.controls; let i = index" formGroupName="{{i}}" class="diary-entry">
+      <div *ngFor="let entry of diaryEntriesFormArray.controls; let i = index" formGroupName="{{i}}" class="diary-entry">
         <!-- first row of each diary entries -->
         <!-- moodand time period dropdowns -->
         <div class="diary-addon">
           <!-- time period dropdown -->
           <mat-form-field appearance="fill" class="diary-addon-item">
             <mat-label>Time Period</mat-label>
-            <!-- <mat-select [(value)]="timePeriodSelection"> -->
-            <mat-select formControlName="timePeriod"> 
+            <mat-select formControlName="time_period"> 
               <!-- iterating through the option array and bind them into mat option dynamicaly -->
               @for (timePeriod of timePeriods; track timePeriod) {
-                <mat-option [value]="timePeriod.id">{{timePeriod.value}}</mat-option>
+                <mat-option [value]="timePeriod.id">{{timePeriod.label}}</mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -31,9 +30,9 @@
           <!-- mood dropdown -->
           <mat-form-field appearance="fill" class="diary-addon-item">
             <mat-label>Mood</mat-label>
-            <mat-select formControlName="mood"  [(value)]="moodSelection">
+            <mat-select formControlName="mood">
               @for (mood of moods; track mood) {
-                <mat-option [value]="mood.id">{{mood.value}}</mat-option>
+                <mat-option [value]="mood.id">{{mood.label}}</mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -44,15 +43,13 @@
           <mat-label>Description</mat-label>
           <textarea matInput formControlName="description" placeholder="What's on your mind?"></textarea>
         </mat-form-field>
-
-        <button mat-mini-fab class="add-diary-entry" (click)="addDiaryEntry()">
-          <mat-icon>add</mat-icon>
-        </button>
       </div>
+
+      <button mat-mini-fab class="add-diary-entry" (click)="addDiaryEntry()">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
     
-    
-    <!-- <button mat-flat-button (click)="addDiaryEntry()">Add New Row</button> -->
     <div class="utility-bar">
       <button mat-flat-button (click)="onClose()">Close</button>
       <button mat-flat-button (click)="onSubmit()" [disabled]="!form.dirty || form.invalid">Submit</button>
