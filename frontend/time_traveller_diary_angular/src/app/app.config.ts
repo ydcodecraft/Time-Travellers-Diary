@@ -7,6 +7,8 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { environment } from '../environments/environment';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
+import { Configuration } from '@ydcodecraft/time_travellers_diary_api';
+import { apiConfigFactory } from './api-config,factory';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -53,6 +55,11 @@ export const appConfig: ApplicationConfig = {
     {
       provide: MAT_DATE_FORMATS,
       useValue: MAT_NATIVE_DATE_FORMATS
+    },
+    // override the config setting from the generated sdk
+    {
+      provide: Configuration,
+      useFactory: apiConfigFactory
     }
   ]
 };
