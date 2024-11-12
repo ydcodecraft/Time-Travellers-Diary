@@ -63,6 +63,7 @@ jobs:
       env:
         SDK_VERSION: "1.0.${{ github.run_number }}"
       run: |
+        npm install
         npx @openapitools/openapi-generator-cli generate \
           -i schema.yml \
           -g typescript-angular \
