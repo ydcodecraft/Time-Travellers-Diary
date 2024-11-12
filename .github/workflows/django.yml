@@ -32,7 +32,6 @@ jobs:
       run: |
         python manage.py spectacular --file schema.yml
     - name: Upload Swagger YAML as Artifact
-      working-directory: backend/time_traveller_diary
       uses: actions/upload-artifact@v3
       with:
         name: swagger-schema
