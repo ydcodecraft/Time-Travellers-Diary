@@ -17,10 +17,10 @@ from api.models.app_user import AppUser
 class DiaryListCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
     serializer_class = DiarySerializer
 
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return DiaryCreateSerializer
-        return DiarySerializer
+    # def get_serializer_class(self):
+    #     if self.request.method == 'POST':
+    #         return DiaryCreateSerializer
+    #     return DiarySerializer
 
 
     # set this up to use drf spectacular to annotate the swagger doc
@@ -40,13 +40,19 @@ class DiaryListCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     # Automatically set the time traveller to the logged-in time traveller when creating a diary entry
-    def perform_create(self, serializer):
-        # get the time traveller for the currently logged in user
-        time_traveller = TimeTraveller.objects.get(user=self.request.user)
-        serializer.save(time_traveller=time_traveller)
-
     def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+        serializer = DiaryCreateSerializer(data=request.data)
+        # have to call is_valid before i can call .save()
+        serializer.is_valid(raise_exception=True)
+
+        # Get the time_traveller for the currently logged-in user
+        time_traveller = TimeTraveller.objects.get(user=self.request.user)
+        diary = serializer.save(time_traveller=time_traveller)
+        
+        # Use DiarySerializer to serialize the full diary object for the response
+        response_serializer = DiarySerializer(diary)
+        
+        return Response(response_serializer.data, status=status.HTTP_201_CREATED)
     
 
 
