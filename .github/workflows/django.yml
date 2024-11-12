@@ -75,9 +75,9 @@ jobs:
         npm run build
     - name: Configure .npmrc for Github Authentication
       run: |
-        cd output/dist
         printf "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}\n@ydcodecraft:registry=https://npm.pkg.github.com/" > output/dist/.npmrc
     - name: Publish Npm Package
       run: |
+        cd dist
         npm publish
         
