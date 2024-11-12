@@ -42,7 +42,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DiaryCreate'
+                $ref: '#/components/schemas/Diary'
           description: ''
   /diary/{id}/:
     get:
@@ -907,16 +907,8 @@ components:
         date:
           type: string
           format: date
-        is_active:
-          type: boolean
-        diary_entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiaryEntryUpdateCreate'
-          nullable: true
       required:
       - date
-      - diary_entries
     DiaryEntry:
       type: object
       properties:
