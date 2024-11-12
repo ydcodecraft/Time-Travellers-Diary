@@ -35,7 +35,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: swagger-schema
-        path: schema.yml
+        path: backend/time_traveller_diary/schema.yml
         
   generate-sdk:
     needs: build
