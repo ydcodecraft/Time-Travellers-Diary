@@ -126,79 +126,131 @@ export class DiaryEntryComponent implements OnInit{
     console.log(this.diaryEntriesFormArray);
 
     if (this.diaryEntriesFormArray.dirty){
-        // if a diary does not have an id, then it's a newly created entry. Create it
-        if (this.form.get('id')?.value === '') {
+      // if a diary does not have an id, then it's a newly created entry. Create it
+      if (this.form.get('id')?.value === '') {
         // leave diary_entries null for now
         // insert all diary entries later
         // we can also create all diary entries and issue a single http request
-        const newDiary: DiaryCreate = {
-          date: this.form.get('date')?.value,
-          diary_entries: null
-        };
-        this.diaryService.diaryCreate(newDiary);
+        this.createDiary();
       }
-        // if a diary has an id, then it's an existing entry. Update it
-        else {
-        const updatedDiary: PatchedDiary = {
-          date: this.form.get('date')?.value
-        }
-
-        this.diaryService.diaryPartialUpdate(this.form.get('id')?.value, updatedDiary).subscribe({
-          next: (result) => { console.log(result);},
-          error: (err) => {
-            this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
-            console.error(err);
-          }
-        });
+      // if a diary has an id, then it's an existing entry. Update it
+      else {
+        this.updateDiary();
       }
         
-      // iterate through all the diary entries and check if they are dirty and valid
-      // submit any dirty diary entries
-      for (let entryForm of this.diaryEntriesFormArray.controls) {
-        if (entryForm.dirty) {
-          // if a diary entry does not have an id, then it's a newly created entry. Create it
-          if (entryForm.get('id')?.value === "") {
-            const newDiaryEntry: DiaryEntryUpdateCreate = {
-              diary: this.form.get('id')?.value,
-              description: entryForm.get('description')?.value,
-              mood: entryForm.get('mood')?.value,
-              time_period: entryForm.get('time_period')?.value
-            };
+      
+    }
+  }
 
-            this.diaryEntryService.diaryEntryCreate(newDiaryEntry).subscribe({
-              next: (result) => { 
-                console.log(result);
-                this.dialogRef.close('refresh');
-              },
-              error: (err) => {
-                this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
-                console.error(err);
-              }
-            });
-          }
-          // if a diary entry has an id, then it's an existing entry. Update it
-          else {
-            const updatedDiaryEntry: PatchedDiaryEntryUpdateCreate = {
-              description: entryForm.get('description')?.value,
-              mood: entryForm.get('mood')?.value,
-              time_period: entryForm.get('time_period')?.value
-            };
-            console.log(entryForm.get('id')?.value);
-            console.log(updatedDiaryEntry);
-            this.diaryEntryService.diaryEntryPartialUpdate(entryForm.get('id')?.value, updatedDiaryEntry).subscribe({
-              next: (result) => { 
-                this.dialogRef.close('refresh');
-                console.log(result);
-              },
-              error: (err) => {
-                this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
-                console.error(err);
-              }
-            })
-          }
-          console.log(entryForm);
+  private createDiary(): void{
+    // create diary
+    const newDiary: DiaryCreate = {
+      date: this.formatDate(this.form.get('date')?.value),
+    };
+    this.diaryService.diaryCreate(newDiary).subscribe({
+      next: (result) => {
+        console.log(result);
+
+        // once diary is created, pull the id from the response body
+        // use the diary id to create diary entries
+        for (let entryForm of this.diaryEntriesFormArray.controls) {
+          const newDiaryEntry: DiaryEntryUpdateCreate = {
+            diary: result.id,
+            description: entryForm.get('description')?.value,
+            mood: entryForm.get('mood')?.value,
+            time_period: entryForm.get('time_period')?.value
+          };
+          this.diaryEntryService.diaryEntryCreate(newDiaryEntry).subscribe({
+            next: (result) => { 
+              console.log(result);
+              this.dialogRef.close('refresh');
+            },
+            error: (err) => {
+              this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
+              console.error(err);
+            }
+          });
         }
+      },
+      error: (err) => {
+        console.error(err);
+        this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
+      }
+    }); 
+  }
+
+
+  private updateDiary(): void{
+    const updatedDiary: PatchedDiary = {
+      date: this.formatDate(this.form.get('date')?.value)
+    }
+
+    this.diaryService.diaryPartialUpdate(this.form.get('id')?.value, updatedDiary).subscribe({
+      next: (result) => { console.log(result);},
+      error: (err) => {
+        this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
+        console.error(err);
+      }
+    });
+
+    // iterate through all the diary entries and check if they are dirty and valid
+    // submit any dirty diary entries
+    for (let entryForm of this.diaryEntriesFormArray.controls) {
+      if (entryForm.dirty) {
+        // if a diary entry does not have an id, then it's a newly created entry. Create it
+        if (entryForm.get('id')?.value === "") {
+          const newDiaryEntry: DiaryEntryUpdateCreate = {
+            diary: this.form.get('id')?.value,
+            description: entryForm.get('description')?.value,
+            mood: entryForm.get('mood')?.value,
+            time_period: entryForm.get('time_period')?.value
+          };
+
+          this.diaryEntryService.diaryEntryCreate(newDiaryEntry).subscribe({
+            next: (result) => { 
+              console.log(result);
+              this.dialogRef.close('refresh');
+            },
+            error: (err) => {
+              this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
+              console.error(err);
+            }
+          });
+        }
+        // if a diary entry has an id, then it's an existing entry. Update it
+        else {
+          const updatedDiaryEntry: PatchedDiaryEntryUpdateCreate = {
+            description: entryForm.get('description')?.value,
+            mood: entryForm.get('mood')?.value,
+            time_period: entryForm.get('time_period')?.value
+          };
+          console.log(entryForm.get('id')?.value);
+          console.log(updatedDiaryEntry);
+          this.diaryEntryService.diaryEntryPartialUpdate(entryForm.get('id')?.value, updatedDiaryEntry).subscribe({
+            next: (result) => { 
+              this.dialogRef.close('refresh');
+              console.log(result);
+            },
+            error: (err) => {
+              this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
+              console.error(err);
+            }
+          })
+        }
+        console.log(entryForm);
       }
     }
   }
+
+
+  // convert date from YYYY-MM-DDThh:mm:ss.msZ to YYYY-MM-DD for API
+  private formatDate(date: string): string {
+    if (!date) {
+      return '';
+    }
+  
+    const formattedDate = new Date(date).toISOString().split('T')[0];
+    return formattedDate;
+  }
+
 }
