@@ -9,14 +9,17 @@
     <mat-step [stepControl]="bioFormGroup">
         <form [formGroup]="bioFormGroup">
             <ng-template matStepLabel>You are?</ng-template>
-            <mat-form-field>
-                <mat-label>Name</mat-label>
-                <input matInput placeholder="Our fantasy adventurer's name" formControlName="name" required>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Age</mat-label>
-                <input matInput type="number" min="8" max="120" placeholder="e.g. 18" formControlName="age" required>
-            </mat-form-field>
+            <div class="form-content">
+                <mat-form-field class="name-field">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Our fantasy adventurer's name" formControlName="name" required>
+                </mat-form-field>
+                <mat-form-field class="age-field">
+                    <mat-label>Age</mat-label>
+                    <input matInput type="number" min="8" max="120" placeholder="e.g. 18" formControlName="age" required>
+                </mat-form-field>
+            </div>
+            
             <div>
                 <button mat-button matStepperPrevious>Previous</button>
                 <button mat-button matStepperNext>Next</button>

@@ -24,7 +24,7 @@ export class TimeTravellerCreationComponent {
 
   bioFormGroup = this.formBuilder.group({
     name: ['', Validators.required],
-    age: ['', Validators.required, Validators.min(8), Validators.max(120)]
+    age: ['', [Validators.required, Validators.min(8), Validators.max(120)]]
   });
 
   

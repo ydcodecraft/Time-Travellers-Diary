@@ -1,0 +1,11 @@
+.form-content {
+    display: flex;
+    flex-direction: column;
+
+    .name-field {
+        width:40%;
+    }
+    .age-field {
+        width: 20%;
+    }
+}
