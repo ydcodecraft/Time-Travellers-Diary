@@ -29,7 +29,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
     private router: Router) {}
 
   ngOnInit(): void {
-    this.isMobileView = window.innerWidth <= 480;
+    // typical mobile width breakpoint is 480 but i increased here to 540 because of surface duo and those landscape flip phones
+    this.isMobileView = window.innerWidth <= 540;
     this.subscription.add(this.customAuth.isLoggedIn$.subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
     }));
