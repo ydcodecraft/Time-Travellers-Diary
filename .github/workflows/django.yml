@@ -64,9 +64,9 @@ jobs:
         SDK_VERSION: "1.0.${{ github.run_number }}"
       run: |
         npx @openapitools/openapi-generator-cli generate \
-          -i .\schema.yml \
+          -i schema.yml \
           -g typescript-angular \
-          -o .\output \
+          -o ./output \
           --additional-properties=ngVersion=18.2.0,npmName=@ydcodecraft/time_travellers_diary_api,npmRepository=https://npm.pkg.github.com/,npmVersion=$SDK_VERSION
     - name: Build The Npm Package
       run: |
