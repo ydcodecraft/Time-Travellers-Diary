@@ -67,7 +67,7 @@ jobs:
           -i .\schema.yml \
           -g typescript-angular \
           -o .\output \
-          --additional-properties=ngVersion=18.2.0,npmName=@ydcodecraft/time_travellers_diary_api, npmRepository=https://npm.pkg.github.com/, npmVersion=$SDK_VERSION
+          --additional-properties=ngVersion=18.2.0,npmName=@ydcodecraft/time_travellers_diary_api,npmRepository=https://npm.pkg.github.com/,npmVersion=$SDK_VERSION
     - name: Build The Npm Package
       run: |
         cd output
