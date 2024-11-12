@@ -28,9 +28,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Generate OpenAPI Yaml Spec
+      working-directory: backend/time_traveller_diary
       run: |
         python manage.py spectacular --file schema.yml
     - name: Upload Swagger YAML as Artifact
+      working-directory: backend/time_traveller_diary
       uses: actions/upload-artifact@v3
       with:
         name: swagger-schema
