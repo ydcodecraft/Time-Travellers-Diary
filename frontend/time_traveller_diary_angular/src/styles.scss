@@ -2,3 +2,56 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+// global media queries
+// important is only used for font sizes and button padding
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem !important;
+    }
+
+    h2 {
+        font-size: 1.2rem !important;
+    }
+
+    h3 {
+        font-size: 1.1rem !important;
+    }
+
+    h4 {
+        font-size: 1rem !important;
+    }
+    span, div {
+        font-size: 0.7rem !important;
+    }
+
+    button {
+        font-size: 0.7rem !important;
+    }
+}
+
+// tablet view
+@media (min-width: 480px) and (max-width: 1024px) {
+    span, div {
+        font-size: 0.9rem !important;
+    }
+
+    button {
+        font-size: 0.9rem !important;
+    }
+}
+
+
+
+/* Adjust for Larger Screens (4K) */
+@media (min-width: 1440px) {
+    span, div {
+        font-size: 1.2rem !important;
+    }
+
+    button {
+        font-size: 1.2rem !important;
+    }
+}

@@ -43,3 +43,39 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+
+// media queries here for differnet screen sizes
+
+// smartphone and smaller screen devices
+@media (max-width: 480px) {
+    .intro {
+        text-align: left;
+    }
+
+    .intro, .what-is, .features, .call-to-action {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    footer {
+        width: fit-content
+    }
+}
+
+// tablet view
+@media (min-width: 480px) and (max-width: 900px) {
+    .intro, .what-is, .features, .call-to-action {
+        width: 95%;
+    }
+}
+
+
+
+/* Adjust for Larger Screens (4K) */
+@media (min-width: 1440px) {
+    .intro, .what-is, .features, .call-to-action {
+        max-width: 1000px;
+        padding: 2rem;
+    }
+}

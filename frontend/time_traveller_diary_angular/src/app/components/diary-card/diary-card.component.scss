@@ -17,3 +17,26 @@
         }
     }
 }
+
+/* phone */
+@media (max-width:480px) {
+    .diary-card-container {
+        width: 40vw;
+        min-height: 15vh;
+    }    
+}
+
+/* tablet */
+@media (min-width: 480px) and (max-width: 1024px) {
+    .diary-card-container {
+        width: 30vw;
+        min-height: 15vh;
+    }    
+}
+
+/* Large screens (4K) */
+// I dont have a large screen so i can't create any responsive design for it
+// ideally we also need to optimize for ultrawide monitors and big screen
+@media (min-width: 1440px) {
+    
+}

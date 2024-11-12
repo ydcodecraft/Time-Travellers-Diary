@@ -2,13 +2,14 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatButtonModule],
+  imports: [CommonModule, MatButtonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit, OnDestroy{
   constructor(
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService,
-    private httpClient: HttpClient) {
+    private httpClient: HttpClient,
+    private router: Router) {
       this.isAuthenticated$ = this.auth.isAuthenticated$;
   }
 
@@ -57,6 +59,9 @@ export class HomeComponent implements OnInit, OnDestroy{
     this.auth.logout({ logoutParams: { returnTo: document.location.origin } });
   }
 
+  redirectToDashboard(): void {
+    this.router.navigate(['/diary-dashboard']);
+  }
 
   authorized_heart_beat_test() {
     this.httpClient.get(

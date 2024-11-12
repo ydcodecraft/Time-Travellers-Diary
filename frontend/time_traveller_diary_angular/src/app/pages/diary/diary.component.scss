@@ -1,6 +1,6 @@
 .diary-card-grid {
     display: grid;
-    margin-top: auto ;
+    margin-top: auto;
     margin-bottom: auto;
     justify-content: center;
     justify-items: center;
@@ -8,7 +8,7 @@
     gap: 1rem;
 
     app-diary-card:hover {
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       cursor: pointer;
   }
 
@@ -27,3 +27,33 @@
   }
 }
 
+/* phone */
+@media (max-width:480px) {
+  .diary-card-grid {
+    grid-template-columns: repeat(2, calc(40% + 0.5rem)); /* Responsive grid */
+
+    .new-diary-card {
+      width: 40vw;
+      min-height:15vh;
+    }
+  }
+}
+
+/* tablet */
+@media (min-width: 480px) and (max-width: 1024px) {
+  .diary-card-grid {
+    grid-template-columns: repeat(3, calc(30% + 0.5rem)); /* Responsive grid */
+
+    .new-diary-card {
+      width: 30vw;
+      min-height: 15vh;
+    }
+  }
+}
+
+/* Large screens (4K) */
+// I dont have a large screen so i can't create any responsive design for it
+// ideally we also need to optimize for ultrawide monitors and big screen
+@media (min-width: 1440px) {
+    
+}
