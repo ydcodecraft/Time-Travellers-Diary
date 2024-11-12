@@ -2,7 +2,7 @@
     <div class="header-logo">
         <img/>
     </div>
-    <div class="header-nav-menu">
+    <div class="header-nav-menu" *ngIf="!isMobileView">
         <a>
             <button mat-flat-button (click)="redirectToHome()">
                 <mat-icon>home</mat-icon>
@@ -27,6 +27,36 @@
                 Log out
             </button>
         </div>
+    </div>
+
+    <div class="header-nav-menu" *ngIf="isMobileView">
+        <div *ngIf="!isLoggedIn">
+            <button mat-flat-button (click)="login()">
+                <mat-icon>login</mat-icon>
+                Log in
+            </button>
+        </div>
+        <div *ngIf="isLoggedIn">
+            <button mat-flat-button (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                Log out
+            </button>
+        </div>
+        
+        <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="redirectToHome()">
+                <mat-icon>home</mat-icon>
+                Home
+            </button>
+            <button mat-menu-item (click)="redirectToDashboard()">
+                <mat-icon>dashboard</mat-icon>
+                Diary Dashboard
+            </button>
+        </mat-menu>
+        
     </div>
     
 </div>
