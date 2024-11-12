@@ -63,7 +63,6 @@ jobs:
       env:
         SDK_VERSION: "1.0.${{ github.run_number }}"
       run: |
-        npm install
         npx @openapitools/openapi-generator-cli generate \
           -i schema.yml \
           -g typescript-angular \
@@ -72,6 +71,7 @@ jobs:
     - name: Build The Npm Package
       run: |
         cd output
+        npm install
         npm run build
     - name: Configure .npmrc for Github Authentication
       run: |
