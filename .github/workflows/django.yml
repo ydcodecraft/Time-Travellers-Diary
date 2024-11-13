@@ -1,0 +1,83 @@
+name: Django CI
+
+on:
+  push:
+    branches-ignore:
+      - master
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: ["3.10"]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      working-directory: backend/time_traveller_diary
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Generate OpenAPI Yaml Spec
+      working-directory: backend/time_traveller_diary
+      run: |
+        python manage.py spectacular --file schema.yml
+    - name: Upload Swagger YAML as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: swagger-schema
+        path: backend/time_traveller_diary/schema.yml
+        
+  generate-sdk:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: ["3.10"]
+    
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    - name: Install OpenAPI Cli Tool
+      run: |
+        npm install @openapitools/openapi-generator-cli -g
+    - name: Download OpenAPI YAML Artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: swagger-schema
+        path: ./
+    - name: Generate Npm Package
+      env:
+        SDK_VERSION: "1.0.${{ github.run_number }}"
+      run: |
+        npx @openapitools/openapi-generator-cli generate \
+          -i schema.yml \
+          -g typescript-angular \
+          -o ./output \
+          --additional-properties=ngVersion=18.2.0,npmName=@ydcodecraft/time_travellers_diary_api,npmRepository=https://npm.pkg.github.com/,npmVersion=$SDK_VERSION
+    - name: Build The Npm Package
+      run: |
+        cd output
+        npm install
+        npm run build
+    - name: Configure .npmrc for Github Authentication
+      run: |
+        printf "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}\n@ydcodecraft:registry=https://npm.pkg.github.com/" > output/dist/.npmrc
+    - name: Publish Npm Package
+      run: |
+        cd output/dist
+        npm publish
+        
