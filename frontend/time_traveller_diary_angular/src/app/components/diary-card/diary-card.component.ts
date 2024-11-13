@@ -12,12 +12,10 @@ import { Diary, DiaryEntry } from '@ydcodecraft/time_travellers_diary_api';
   styleUrl: './diary-card.component.scss'
 })
 export class DiaryCardComponent implements OnInit{
-  // TODO: placeholder, change this to dto soon
   @Input() diaryData!: Diary;
   
   
   ngOnInit(): void {
-    console.log(this.diaryData);
   }
 
 

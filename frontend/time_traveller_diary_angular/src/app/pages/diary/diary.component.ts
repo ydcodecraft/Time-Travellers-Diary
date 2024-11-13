@@ -45,7 +45,6 @@ export class DiaryComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed');
       if (result === 'refresh') {
         this.fetchDiaries();
       }

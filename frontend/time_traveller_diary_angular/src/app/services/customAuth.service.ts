@@ -25,18 +25,15 @@ export class CustomAuthService {
  
       if (isAuthenticated) {
         this.auth.getAccessTokenSilently().subscribe({
-          next: (token) => {
-            console.log(token);
-            
+          next: (token) => {            
             //  store the access token to local storage
-            localStorage.setItem("auth0", token);
+            // localStorage.setItem("auth0", token);
           }
         })
 
      
         this.auth.user$.subscribe((result) => {
           let snaitized_sub = result?.sub?.replace('|','.');
-          console.log(snaitized_sub);
           if (snaitized_sub !== null && snaitized_sub !== undefined) {
             this.timeTravellerService.timeTravellerCheckRetrieve(snaitized_sub).subscribe({
               // didn't find any time traveller, redirect to time traveller creaton screen
