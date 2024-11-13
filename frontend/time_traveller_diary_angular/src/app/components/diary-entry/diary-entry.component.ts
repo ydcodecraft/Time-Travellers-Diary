@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { DiaryService, TimePeriodService, TimePeriod, MoodService, Mood, Diary, DiaryEntryService, DiaryEntryUpdateCreate, DiaryEntry, PatchedDiary, DiaryCreate, PatchedDiaryEntryUpdateCreate } from '@ydcodecraft/time_travellers_diary_api'
@@ -22,6 +22,9 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrl: './diary-entry.component.scss'
 })
 export class DiaryEntryComponent implements OnInit{
+  
+
+
   private readonly dialogRef = inject(MatDialogRef<DiaryEntryComponent>);
   private readonly snackBar = inject(MatSnackBar);
 
@@ -82,7 +85,8 @@ export class DiaryEntryComponent implements OnInit{
       this.form.get('id')?.setValue(this.diaryData.id , { emitEvent: false });
     }
     if (this.diaryData?.date) {
-      this.form.get('date')?.setValue(this.diaryData.date, { emitEvent: false });
+      const date = new Date(this.parseLocalTime(this.diaryData.date));
+      this.form.get('date')?.setValue(date, { emitEvent: false });
     }
     // becasue a diary can contain multiple diary entries
     // iterate through the diary entries array and generate n number of diary entry formGroup
@@ -123,9 +127,8 @@ export class DiaryEntryComponent implements OnInit{
   }
 
   onSubmit(): void {
-    console.log(this.diaryEntriesFormArray);
-
-    if (this.diaryEntriesFormArray.dirty){
+    console.log(this.form.controls);
+    if (this.form.dirty){
       // if a diary does not have an id, then it's a newly created entry. Create it
       if (this.form.get('id')?.value === '') {
         // leave diary_entries null for now
@@ -145,7 +148,9 @@ export class DiaryEntryComponent implements OnInit{
   private createDiary(): void{
     // create diary
     const newDiary: DiaryCreate = {
-      date: this.formatDate(this.form.get('date')?.value),
+      date: this.convertToShortDateFormat(this.form.get('date')?.value),
+      //  date: this.form.get('date')?.value,
+
     };
     this.diaryService.diaryCreate(newDiary).subscribe({
       next: (result) => {
@@ -181,18 +186,6 @@ export class DiaryEntryComponent implements OnInit{
 
 
   private updateDiary(): void{
-    const updatedDiary: PatchedDiary = {
-      date: this.formatDate(this.form.get('date')?.value)
-    }
-
-    this.diaryService.diaryPartialUpdate(this.form.get('id')?.value, updatedDiary).subscribe({
-      next: (result) => { console.log(result);},
-      error: (err) => {
-        this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
-        console.error(err);
-      }
-    });
-
     // iterate through all the diary entries and check if they are dirty and valid
     // submit any dirty diary entries
     for (let entryForm of this.diaryEntriesFormArray.controls) {
@@ -209,7 +202,6 @@ export class DiaryEntryComponent implements OnInit{
           this.diaryEntryService.diaryEntryCreate(newDiaryEntry).subscribe({
             next: (result) => { 
               console.log(result);
-              this.dialogRef.close('refresh');
             },
             error: (err) => {
               this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
@@ -224,11 +216,9 @@ export class DiaryEntryComponent implements OnInit{
             mood: entryForm.get('mood')?.value,
             time_period: entryForm.get('time_period')?.value
           };
-          console.log(entryForm.get('id')?.value);
-          console.log(updatedDiaryEntry);
+
           this.diaryEntryService.diaryEntryPartialUpdate(entryForm.get('id')?.value, updatedDiaryEntry).subscribe({
             next: (result) => { 
-              this.dialogRef.close('refresh');
               console.log(result);
             },
             error: (err) => {
@@ -240,17 +230,43 @@ export class DiaryEntryComponent implements OnInit{
         console.log(entryForm);
       }
     }
+
+    const updatedDiary: PatchedDiary = {
+      date: this.convertToShortDateFormat(this.form.get('date')?.value)
+      // date: this.form.get('date')?.value,
+    }
+
+    this.diaryService.diaryPartialUpdate(this.form.get('id')?.value, updatedDiary).subscribe({
+      next: (result) => { 
+        this.dialogRef.close('refresh');
+        console.log(result);
+      },
+      error: (err) => {
+        this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
+        console.error(err);
+      }
+    });
   }
 
 
   // convert date from YYYY-MM-DDThh:mm:ss.msZ to YYYY-MM-DD for API
-  private formatDate(date: string): string {
+  private convertToShortDateFormat(date: string): string {
+    console.log(date);
     if (!date) {
       return '';
     }
-  
+    
     const formattedDate = new Date(date).toISOString().split('T')[0];
+    console.log(new Date(date).toISOString());
+    console.log(formattedDate);
     return formattedDate;
   }
 
+  private parseLocalTime(date: string): Date {
+    const [year, month, day] = date.split('-').map(Number);
+    let localDate =  new Date(year, month - 1);
+    localDate.setDate(day);
+    console.log(localDate);
+    return localDate;
+  }
 }
