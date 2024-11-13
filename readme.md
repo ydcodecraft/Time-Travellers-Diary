@@ -16,6 +16,11 @@ Live API swagger doc: https://ydcodecraft.pythonanywhere.com/swagger/#/
 3. at time_traveller_diary root folder, python manage.py migrate
 4. python manage.py runserver
 
+## User Story
+1. Mood data and Time Selector data is seeded in the database
+2. Diary and time travellers are tied to the authentication, so I can't seed them unfortunately
+3. You can use login/ registration window to create a new account and a new character, from there, you can create diaries in the "Diary Dashboard" page  
+
 # Tech Stack
 Front-End Framework - Angular\
 Back-End Framework - Django Rest Framework\
