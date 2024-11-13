@@ -147,8 +147,6 @@ export class DiaryEntryComponent implements OnInit{
     // create diary
     const newDiary: DiaryCreate = {
       date: this.convertToShortDateFormat(this.form.get('date')?.value),
-      //  date: this.form.get('date')?.value,
-
     };
     this.diaryService.diaryCreate(newDiary).subscribe({
       next: (result) => {
@@ -223,9 +221,9 @@ export class DiaryEntryComponent implements OnInit{
       }
     }
 
+    // update diary object
     const updatedDiary: PatchedDiary = {
       date: this.convertToShortDateFormat(this.form.get('date')?.value)
-      // date: this.form.get('date')?.value,
     }
 
     this.diaryService.diaryPartialUpdate(this.form.get('id')?.value, updatedDiary).subscribe({
@@ -251,11 +249,12 @@ export class DiaryEntryComponent implements OnInit{
     return formattedDate;
   }
 
+  // convert string into an Date object in local time
   private parseLocalTime(date: string): Date {
     const [year, month, day] = date.split('-').map(Number);
     let localDate =  new Date(year, month - 1);
     localDate.setDate(day);
-    
+
     return localDate;
   }
 
