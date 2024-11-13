@@ -7,6 +7,12 @@
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
       <mat-datepicker #datepicker></mat-datepicker>
+      <mat-error *ngIf="form.get('date')?.hasError('invalidDateFormat')">
+        Invalid Date Format
+      </mat-error>
+      <mat-error *ngIf="form.get('date')?.hasError('dateGreaterThanToday')">
+        Cannot Enter Date Greater than Today
+      </mat-error>
     </mat-form-field>
 
     <!-- repeating array diary entries -->

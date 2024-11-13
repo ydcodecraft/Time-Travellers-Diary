@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Inject, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { Form, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, Form, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -43,7 +43,7 @@ export class DiaryEntryComponent implements OnInit{
     private moodService: MoodService) {
     this.form = this.formBuilder.group({
       id: [''],
-      date: ['', Validators.required],
+      date: ['', [ Validators.required, this.dateFormatValidator() ]],
       diaryEntries: this.formBuilder.array([])
     })
   }
@@ -119,7 +119,6 @@ export class DiaryEntryComponent implements OnInit{
       description : ['', Validators.required],
     });
     this.diaryEntriesFormArray.push(emptyDiaryEntry);
-    console.log(emptyDiaryEntry);
   }
 
   onClose(): void {
@@ -127,7 +126,6 @@ export class DiaryEntryComponent implements OnInit{
   }
 
   onSubmit(): void {
-    console.log(this.form.controls);
     if (this.form.dirty){
       // if a diary does not have an id, then it's a newly created entry. Create it
       if (this.form.get('id')?.value === '') {
@@ -154,8 +152,6 @@ export class DiaryEntryComponent implements OnInit{
     };
     this.diaryService.diaryCreate(newDiary).subscribe({
       next: (result) => {
-        console.log(result);
-
         // once diary is created, pull the id from the response body
         // use the diary id to create diary entries
         for (let entryForm of this.diaryEntriesFormArray.controls) {
@@ -167,7 +163,6 @@ export class DiaryEntryComponent implements OnInit{
           };
           this.diaryEntryService.diaryEntryCreate(newDiaryEntry).subscribe({
             next: (result) => { 
-              console.log(result);
               this.dialogRef.close('refresh');
             },
             error: (err) => {
@@ -201,7 +196,6 @@ export class DiaryEntryComponent implements OnInit{
 
           this.diaryEntryService.diaryEntryCreate(newDiaryEntry).subscribe({
             next: (result) => { 
-              console.log(result);
             },
             error: (err) => {
               this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
@@ -219,7 +213,6 @@ export class DiaryEntryComponent implements OnInit{
 
           this.diaryEntryService.diaryEntryPartialUpdate(entryForm.get('id')?.value, updatedDiaryEntry).subscribe({
             next: (result) => { 
-              console.log(result);
             },
             error: (err) => {
               this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
@@ -227,7 +220,6 @@ export class DiaryEntryComponent implements OnInit{
             }
           })
         }
-        console.log(entryForm);
       }
     }
 
@@ -239,7 +231,6 @@ export class DiaryEntryComponent implements OnInit{
     this.diaryService.diaryPartialUpdate(this.form.get('id')?.value, updatedDiary).subscribe({
       next: (result) => { 
         this.dialogRef.close('refresh');
-        console.log(result);
       },
       error: (err) => {
         this.snackBar.open("Oops, we have some issue saving your adventure! Please try again later!", "I'll Try Again Later!");
@@ -251,14 +242,12 @@ export class DiaryEntryComponent implements OnInit{
 
   // convert date from YYYY-MM-DDThh:mm:ss.msZ to YYYY-MM-DD for API
   private convertToShortDateFormat(date: string): string {
-    console.log(date);
     if (!date) {
       return '';
     }
     
     const formattedDate = new Date(date).toISOString().split('T')[0];
-    console.log(new Date(date).toISOString());
-    console.log(formattedDate);
+
     return formattedDate;
   }
 
@@ -266,7 +255,26 @@ export class DiaryEntryComponent implements OnInit{
     const [year, month, day] = date.split('-').map(Number);
     let localDate =  new Date(year, month - 1);
     localDate.setDate(day);
-    console.log(localDate);
+    
     return localDate;
+  }
+
+  dateFormatValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+
+      if (value === null || value === undefined) {
+        return { invalidDateFormat: true };
+      }
+      const valueDate = new Date(value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      if (valueDate > today) {
+        return { dateGreaterThanToday: true };
+      }
+
+      return null;
+    }
   }
 }
