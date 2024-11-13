@@ -26,20 +26,20 @@ Front-End Framework - Angular\
 Back-End Framework - Django Rest Framework\
 Identity Management and Auth Platform - Auth0\
 Version Control - GitHub\
-CI/CD Pipeline - GitHub Actions
-~~ Containerization - Docker ~~ didn't have enough time to get this done\
-Frontend hosting - Vercel 
+CI/CD Pipeline - GitHub Actions\
+Containerization - Docker didn't have enough time to get this done\
+Frontend hosting - Vercel\
 Backend Hosting - PythonAnywhere\
 Database - MySQL (Free on PythonAnywhere and faster than SQLLite)
 
 ## Client Side
-Angular 18 standalone with Material library
-I chose Material because it's a quick cookie-cutter component library. If I have the time, I would also work with custom SCSS or tailwind to introduce more customization to the UI
+Angular 18 standalone with Material library\
+I chose Material because it's a quick cookie-cutter component library. If I have the time, I would also work with custom SCSS or tailwind to introduce more customization to the UI\
 I set up 2 environments on Vercel, the master branch will release the app to PRD and other feature branches will release to DEV (Preview). Ideally, I would also add testing and staging environment for a complete SDLC
 
 ## Server Side
-MySql hosted on PythonAnywhere
-Django ORM creating the models and relationships
+MySql hosted on PythonAnywhere\
+Django ORM creating the models and relationships\
 Django Rest Framework creating the serialziers and serving the API
 
 The Deployment of this is manual, it's old school VM deployment and I didn't have the time to find out how to orchestrate automatic deployment from Github Actions
@@ -63,7 +63,7 @@ Detailed Workflow
 6. DRF backend validates the incoming access token against auth0, validate the claims and scopes(in this project i didn't set detailed scopes of access)
 7. auth process completes and DRF backend sends response back to Angular frontend 
 
-#Issues and Improvements
+## Issues and Improvements
 1. not optimized for ultrawide and larger screens like 4K
 2. Soft delete: I wanted to implement soft delete for my diary objects. I set up the column "is_active" but didn't have the time to complete the feature at the front end. Choosing soft delete is beneficial without losing user data
 
